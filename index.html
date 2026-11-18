@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#ffb3c7" id="metaTheme">
+<meta name="theme-color" content="#050818" id="metaTheme">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Jam Meja</title>
@@ -17,15 +17,16 @@
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:Fredoka,ui-rounded,system-ui,sans-serif;background:#1d1530;color:#fff;overflow:hidden;overscroll-behavior:none;user-select:none;-webkit-user-select:none}
+body{font-family:Fredoka,ui-rounded,system-ui,sans-serif;background:#0b1020;color:#fff;overflow:hidden;overscroll-behavior:none;user-select:none;-webkit-user-select:none}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 [hidden]{display:none!important}
 
 /* ============ BERANDA (mode tegak) ============ */
-#home{position:fixed;inset:0;overflow-y:auto;padding:max(20px,env(safe-area-inset-top)) 18px 32px;background:radial-gradient(120% 55% at 50% 0%,#4b2a7a 0%,#1d1530 62%);display:flex;flex-direction:column;gap:16px}
+#home{position:fixed;inset:0;overflow-y:auto;padding:max(20px,env(safe-area-inset-top)) 18px 32px;background:radial-gradient(120% 55% at 50% 0%,#1d3560 0%,#0b1020 62%);display:flex;flex-direction:column;gap:16px}
 body.clock #home{display:none}
 #home h1{font-size:34px;font-weight:700;letter-spacing:.3px;line-height:1.1}
-#home h1 b{color:#ff8fb8}
+#home h1 b{color:#e9b872}
+#home>*{flex:none}
 .sub{opacity:.78;font-size:15px;line-height:1.4}
 .tilt{display:flex;align-items:center;gap:12px;background:#ffffff12;border-radius:18px;padding:10px 14px;font-size:14.5px;line-height:1.35}
 .tilt svg{flex:none;width:38px;height:38px;animation:tilt 3.2s ease-in-out infinite}
@@ -33,27 +34,27 @@ body.clock #home{display:none}
 #slot{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 0 0 3px #ffffff30,0 14px 30px #0007}
 #slot #stage{width:100%;aspect-ratio:16/10}
 .card{background:#ffffff12;border-radius:22px;padding:14px}
-.big{background:linear-gradient(135deg,#ff8fb8,#ff6fa3);border-radius:18px;padding:15px;font-size:20px;font-weight:700;color:#fff;box-shadow:0 5px 0 #c24577;width:100%}
-.big:active{transform:translateY(3px);box-shadow:0 2px 0 #c24577}
+.big{background:linear-gradient(135deg,#7fe3ee,#3fc4c0);border-radius:18px;padding:15px;font-size:20px;font-weight:700;color:#04252c;box-shadow:0 5px 0 #1f8a8c;width:100%}
+.big:active{transform:translateY(3px);box-shadow:0 2px 0 #1f8a8c}
 .ghost{background:#ffffff1a;border-radius:16px;padding:12px;font-weight:500;width:100%;font-size:15.5px}
 .foot{opacity:.55;font-size:12.5px;line-height:1.45;text-align:center}
 
 /* ============ PANEL PENGATURAN ============ */
-.themes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.chip{background:#ffffff14;border-radius:14px;padding:9px 2px 7px;font-size:13px;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:1px;border:2px solid transparent}
+.themes{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.chip{background:#ffffff14;border-radius:14px;padding:9px 2px 7px;font-size:12px;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:1px;border:2px solid transparent}
 .chip span{font-size:23px;line-height:1.2}
-.chip.on{background:#ff6fa333;border-color:#ff8fb8}
+.chip.on{background:#4fd1c533;border-color:#6fd8e6}
 .rows{display:flex;flex-direction:column;margin-top:8px}
 .row{display:flex;justify-content:space-between;align-items:center;padding:11px 4px;font-size:16px;border-top:1px solid #ffffff14;width:100%;text-align:left}
 .row:first-child{border-top:0}
 .sw{flex:none;width:46px;height:28px;border-radius:99px;background:#ffffff30;position:relative;transition:.2s}
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
-.row.on .sw{background:#ff6fa3}
+.row.on .sw{background:#4fd1c5}
 .row.on .sw::after{transform:translateX(18px)}
-.row input[type=range]{width:55%;accent-color:#ff6fa3}
+.row input[type=range]{width:55%;accent-color:#4fd1c5}
 
 /* ============ LEMBAR PENGATURAN (mode jam) ============ */
-#sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#1d1530f2;border-radius:24px 24px 0 0;padding:12px 18px max(16px,env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s ease;max-height:92vh;overflow-y:auto;box-shadow:0 -10px 40px #0008}
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#0d1426f2;border-radius:24px 24px 0 0;padding:12px 18px max(16px,env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s ease;max-height:92vh;overflow-y:auto;box-shadow:0 -10px 40px #0008}
 #sheet.open{transform:none}
 .sh-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .sh-top b{font-size:17px}
@@ -70,7 +71,7 @@ body.clock #stage{position:fixed;inset:0;width:100%;height:100%;z-index:5;aspect
 #dimmer{position:absolute;inset:0;background:#000;opacity:var(--dim);pointer-events:none;z-index:50}
 .scene{position:absolute;inset:0;display:none;animation:sceneIn .5s ease both}
 @keyframes sceneIn{from{opacity:0;transform:scale(1.03)}}
-[data-theme=neko] #s-neko,[data-theme=sakura] #s-sakura,[data-theme=pop] #s-pop,[data-theme=cloud] #s-cloud{display:flex}
+[data-theme=tokyo] #s-tokyo,[data-theme=sakura] #s-sakura,[data-theme=manga] #s-manga,[data-theme=elegan] #s-elegan,[data-theme=custom] #s-custom{display:flex}
 
 .time{display:flex;align-items:baseline;justify-content:center;line-height:1;white-space:nowrap}
 .colon{font-style:normal;animation:blink 1s steps(1) infinite;margin:0 .03em;position:relative;top:-.05em}
@@ -81,60 +82,60 @@ body.clock #stage{position:fixed;inset:0;width:100%;height:100%;z-index:5;aspect
 .nosec .sec{display:none}
 .nodate .date{display:none}
 
-/* ---------- TEMA 1: NEKO ---------- */
-#s-neko{align-items:center;justify-content:center;background-color:#ffc4d8;
-  background-image:radial-gradient(#ffffffa0 18%,transparent 19%),radial-gradient(#ff9fc2 14%,transparent 15%);
-  background-size:7cqmin 7cqmin;background-position:0 0,3.5cqmin 3.5cqmin;
-  animation:sceneIn .5s ease both,drift 26s linear infinite}
-@keyframes drift{to{background-position:7cqmin 7cqmin,10.5cqmin 10.5cqmin}}
-.neko-stack{display:flex;flex-direction:column;align-items:center;gap:3.4cqmin;margin-top:5cqmin}
-.neko-wrap{position:relative}
-.neko-panel{position:relative;z-index:1;background:#fffaf3;border:1.1cqmin solid #5b3a3a;border-radius:6cqmin;padding:2.4cqmin 6cqmin 3.2cqmin;box-shadow:1.4cqmin 1.8cqmin 0 #5b3a3a;color:#5b3a3a;font-size:min(23cqw,38cqh);font-weight:700}
-.neko-panel .colon,.neko-panel .sec{color:#ff6fa3}
-.cat,.paws{position:absolute;left:6%;width:27cqmin;bottom:calc(100% - 2.7cqmin);overflow:visible;pointer-events:none}
-.cat{z-index:0}
-.paws{z-index:2}
-.cat .eyes{transform-origin:100px 68px;animation:eyeblink 4.5s infinite}
-@keyframes eyeblink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
-.tail{position:absolute;z-index:0;right:-8cqmin;bottom:14%;width:13cqmin;transform-origin:18% 94%;animation:wag 1.7s ease-in-out infinite alternate;pointer-events:none}
-@keyframes wag{from{transform:rotate(-8deg)}to{transform:rotate(10deg)}}
-.pill{background:#fffaf3;border:.9cqmin solid #5b3a3a;color:#5b3a3a;border-radius:99px;padding:.7cqmin 4.4cqmin;font-weight:700;font-size:min(3.6cqw,6.8cqh);box-shadow:.8cqmin 1cqmin 0 #5b3a3a;white-space:nowrap}
-.fl{position:absolute;bottom:-9cqmin;left:var(--x);font-size:var(--s);opacity:.85;animation:up var(--d) linear var(--dl) infinite;pointer-events:none}
-@keyframes up{to{transform:translateY(-125cqh) rotate(25deg);opacity:0}}
+/* ---------- TEMA 1: TOKYO (malam hujan neon) ---------- */
+#s-tokyo{align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(#050818 0%,#0c1838 44%,#17406a 76%,#c98a4b 100%)}
+.tk-city{position:absolute;left:0;bottom:11%;width:100%;height:60%;pointer-events:none}
+.tk-ground{position:absolute;left:0;right:0;bottom:0;height:12%;background:linear-gradient(#0a1124,#03050c)}
+.tk-ground::before{content:"";position:absolute;inset:0;background:radial-gradient(28% 100% at 20% 0,#4fd1c566,transparent),radial-gradient(24% 100% at 62% 0,#f2b56b55,transparent),radial-gradient(18% 100% at 92% 0,#7aa2ff44,transparent)}
+.rain{position:absolute;inset:0;pointer-events:none;z-index:4}
+.rain i{position:absolute;top:-14%;left:var(--x);width:.2cqmin;height:var(--l);background:linear-gradient(transparent,#c4e4ffaa);transform:translate(0,0) rotate(14deg);animation:rain var(--d) linear var(--dl) infinite}
+@keyframes rain{to{transform:translate(-26cqh,130cqh) rotate(14deg)}}
+.tk-sign{position:absolute;left:6%;top:10%;font-weight:700;letter-spacing:.3em;font-size:min(2.6cqw,5cqh);color:#c8f8ff;text-shadow:0 0 .3em #4fd1c5,0 0 .9em #4fd1c5;border:.35cqmin solid #7ee8f0;border-radius:1cqmin;padding:.4cqmin 1.4cqmin .4cqmin 2cqmin;box-shadow:0 0 1.4cqmin #4fd1c566,inset 0 0 1cqmin #4fd1c555;transform:rotate(-3deg);animation:flick 5s infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.4}95%{opacity:1}97%{opacity:.55}}
+.tk-clock{position:relative;z-index:3;display:flex;flex-direction:column;align-items:flex-start;gap:1.2cqmin;margin-right:30cqw;color:#e8fbff;font-size:min(20cqw,36cqh)}
+.tk-clock .time{font-weight:500;text-shadow:0 0 .05em #dffcff,0 0 .3em #4fd1c5aa}
+.tk-clock .colon{color:#7ee8f0}
+.tk-clock .sec{color:#f2b56b;text-shadow:0 0 .4em #f2b56b88}
+.tk-clock .date{font-size:.14em;letter-spacing:.16em;text-transform:uppercase;color:#f2c98a;text-shadow:0 0 .6em #f2b56b66;white-space:nowrap}
+.tk-girl{position:absolute;z-index:3;right:7%;bottom:3%;height:86cqh;aspect-ratio:140/300;overflow:visible;pointer-events:none}
 
-/* ---------- TEMA 2: SAKURA ---------- */
-#s-sakura{flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#090c2b 0%,#231658 42%,#7a3a86 72%,#ff9fb8 100%)}
+/* ---------- TEMA 2: SAKURA (senja) ---------- */
+#s-sakura{flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#050a22 0%,#13245a 42%,#2f4a8a 70%,#e0a36b 100%)}
 .stars i{position:absolute;border-radius:50%;background:#fff;width:var(--s);height:var(--s);left:var(--x);top:var(--y);animation:twk var(--d) ease-in-out var(--dl) infinite alternate}
 @keyframes twk{from{opacity:.15}to{opacity:1}}
 .moon{position:absolute;right:9%;top:7%;width:min(21cqw,38cqh);aspect-ratio:1;filter:drop-shadow(0 0 3cqmin #ffe9a8aa)}
 .shoot{position:absolute;top:12%;left:-20%;width:18cqmin;height:.45cqmin;border-radius:9px;background:linear-gradient(90deg,transparent,#fff);transform:rotate(24deg);opacity:0;animation:shoot 11s linear 3s infinite}
 @keyframes shoot{0%{transform:translate(0,0) rotate(24deg);opacity:0}2%{opacity:1}9%{transform:translate(95cqw,45cqw) rotate(24deg);opacity:0}100%{opacity:0}}
 .land{position:absolute;left:0;bottom:0;width:100%;height:100%;pointer-events:none}
-.petal{position:absolute;top:0;left:var(--x);width:var(--s);height:calc(var(--s)*.72);background:linear-gradient(135deg,#ffe0ea,#ff8fb3);border-radius:150% 0 150% 0;opacity:.92;animation:fall var(--d) linear var(--dl) infinite}
+.petal{position:absolute;top:0;left:var(--x);width:var(--s);height:calc(var(--s)*.72);background:linear-gradient(135deg,#fff3f6,#e6a8bd);border-radius:150% 0 150% 0;opacity:.88;animation:fall var(--d) linear var(--dl) infinite}
 @keyframes fall{0%{transform:translate3d(0,-8cqh,0) rotate(0)}100%{transform:translate3d(var(--dx),112cqh,0) rotate(var(--r))}}
-.sak-time{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.6cqmin;margin-top:-3cqmin;color:#fff4f8}
-.sak-time .time{font-size:min(22cqw,40cqh);font-weight:500;text-shadow:0 0 .12em #ff8fb8,0 0 .45em #ff5c93aa}
-.sak-time .colon{color:#ffc2d6}
-.sak-time .date{font-size:min(3.4cqw,6.2cqh);letter-spacing:.08em;color:#ffd5e2;text-shadow:0 0 .6em #ff5c93}
+.gp{fill:currentColor;stroke:var(--rim,#8fb0ff);stroke-opacity:.4;stroke-width:.8;stroke-linejoin:round}
+.gp.arm{fill:none;stroke:currentColor;stroke-opacity:1;stroke-width:6;stroke-linecap:round}
+.sak-girl{position:absolute;z-index:2;left:19%;bottom:10%;height:48cqh;aspect-ratio:100/260;color:#050818;overflow:visible;pointer-events:none}
+.sak-time{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.6cqmin;margin-top:-3cqmin;margin-left:14cqw;color:#fff7ea}
+.sak-time .time{font-size:min(22cqw,40cqh);font-weight:500;text-shadow:0 0 .12em #ffe3b0,0 0 .45em #f2b56b99}
+.sak-time .colon{color:#ffd9a0}
+.sak-time .date{font-size:min(3.4cqw,6.2cqh);letter-spacing:.1em;color:#ffe3c0;text-shadow:0 0 .6em #f2b56b}
 
-/* ---------- TEMA 3: POP (manga) ---------- */
-#s-pop{align-items:center;justify-content:center;background:#ffd93b;overflow:hidden}
-#s-pop::before{content:"";position:absolute;inset:0;background:radial-gradient(#ff9f1c 22%,transparent 23%) 0 0/3.4cqmin 3.4cqmin;opacity:.55}
-.speed{position:absolute;left:50%;top:50%;width:260cqmax;height:260cqmax;margin:-130cqmax 0 0 -130cqmax;background:repeating-conic-gradient(#ffffffa6 0 2.2deg,transparent 2.2deg 9deg);-webkit-mask:radial-gradient(circle,transparent 16%,#000 52%);mask:radial-gradient(circle,transparent 16%,#000 52%);animation:spin 90s linear infinite}
+/* ---------- TEMA 3: MANGA (hitam, putih, merah) ---------- */
+#s-manga{align-items:center;justify-content:center;background:#ece9e0;overflow:hidden}
+#s-manga::before{content:"";position:absolute;inset:0;background:radial-gradient(#111 24%,transparent 26%) 0 0/2.8cqmin 2.8cqmin;opacity:.2;-webkit-mask:linear-gradient(120deg,#000,transparent 62%);mask:linear-gradient(120deg,#000,transparent 62%)}
+#s-manga::after{content:"";position:absolute;inset:2cqmin;border:.8cqmin solid #111;z-index:6;pointer-events:none}
+.speed{position:absolute;left:50%;top:50%;width:260cqmax;height:260cqmax;margin:-130cqmax 0 0 -130cqmax;background:repeating-conic-gradient(#111 0 .7deg,transparent .7deg 8deg);opacity:.5;-webkit-mask:radial-gradient(circle,transparent 18%,#000 56%);mask:radial-gradient(circle,transparent 18%,#000 56%);animation:spin 120s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .pop-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:4cqmin;--ch:min(50cqh,30cqw)}
 .pop-row{position:relative;display:flex;align-items:center;gap:2.6cqmin}
 .grp{display:flex;gap:1.6cqmin}
-.grp.h{--c:#ff4d6d;--c2:#e23556}
-.grp.m{--c:#2ec4ff;--c2:#1aa9e6}
+.grp.h{--c:#1b1d24;--c2:#101117}
+.grp.m{--c:#b3122a;--c2:#8c0c20}
 .dots{display:flex;flex-direction:column;gap:3cqmin;animation:blink 1s steps(1) infinite}
-.dots i{width:2.2cqmin;height:2.2cqmin;background:#111;border-radius:50%;box-shadow:.4cqmin .5cqmin 0 #0004}
-.flip{position:relative;width:calc(var(--ch)*.72);height:var(--ch);border:.9cqmin solid #111;border-radius:2.2cqmin;box-shadow:1cqmin 1.4cqmin 0 #111;perspective:calc(var(--ch)*3.2);background:#111;font-family:Bangers,Fredoka,sans-serif;font-size:calc(var(--ch)*.84);color:#fff}
-.flip::after{content:"";position:absolute;left:0;right:0;top:50%;height:.45cqmin;margin-top:-.22cqmin;background:#111;z-index:5}
+.dots i{width:2.2cqmin;height:2.2cqmin;background:#111;border-radius:50%}
+.flip{position:relative;width:calc(var(--ch)*.72);height:var(--ch);border:.9cqmin solid #111;border-radius:2.2cqmin;box-shadow:1cqmin 1.4cqmin 0 #b5afa2;perspective:calc(var(--ch)*3.2);background:#111;font-family:Bangers,Fredoka,sans-serif;font-size:calc(var(--ch)*.84);color:#f6f2ea}
+.flip::after{content:"";position:absolute;left:0;right:0;top:50%;height:.45cqmin;margin-top:-.22cqmin;background:#000;z-index:5}
 .flip>div{position:absolute;left:0;right:0;overflow:hidden;backface-visibility:hidden}
 .flip .top,.flip .ft{top:0;height:50%;border-radius:1.4cqmin 1.4cqmin 0 0;background:var(--c)}
 .flip .bot,.flip .fb{bottom:0;height:50%;border-radius:0 0 1.4cqmin 1.4cqmin;background:var(--c2)}
-.flip span{position:absolute;left:0;right:0;height:200%;display:flex;align-items:center;justify-content:center;line-height:1;-webkit-text-stroke:.05em #111;paint-order:stroke fill;text-shadow:.05em .06em 0 #111}
+.flip span{position:absolute;left:0;right:0;height:200%;display:flex;align-items:center;justify-content:center;line-height:1}
 .flip .top span,.flip .ft span{top:0}
 .flip .bot span,.flip .fb span{bottom:0}
 .flip .ft{transform-origin:50% 100%;z-index:3}
@@ -145,56 +146,111 @@ body.clock #stage{position:fixed;inset:0;width:100%;height:100%;z-index:5;aspect
 @keyframes fb{to{transform:rotateX(0)}}
 .burst{position:absolute;right:-12cqmin;top:-12.5cqmin;width:min(12.5cqw,24cqh);overflow:visible;transform:rotate(-8deg);filter:drop-shadow(.6cqmin .8cqmin 0 #111)}
 .burst polygon{fill:#fff;stroke:#111;stroke-width:3.2;stroke-linejoin:round}
-.burst text{font-family:Bangers,Fredoka,sans-serif;font-size:36px;fill:#ff4d6d;stroke:#111;stroke-width:1.2;paint-order:stroke fill}
-.tag{background:#111;color:#fff;font-family:Bangers,Fredoka,sans-serif;letter-spacing:.06em;padding:.6cqmin 4cqmin;font-size:min(4.4cqw,8cqh);transform:rotate(-2deg);box-shadow:.9cqmin .9cqmin 0 #ff4d6d;white-space:nowrap}
+.burst text{font-family:Bangers,Fredoka,sans-serif;font-size:36px;fill:#b3122a;stroke:#111;stroke-width:1.2;paint-order:stroke fill}
+.tag{background:#111;color:#ece9e0;font-family:Bangers,Fredoka,sans-serif;letter-spacing:.08em;padding:.6cqmin 4cqmin;font-size:min(4.4cqw,8cqh);transform:rotate(-2deg);box-shadow:.9cqmin .9cqmin 0 #b3122a;white-space:nowrap}
 
-/* ---------- TEMA 4: AWAN (analog kawaii) ---------- */
-#s-cloud{align-items:center;justify-content:center;background:linear-gradient(#7fc8ff 0%,#bfe6ff 55%,#eaf8ff 100%)}
-.clouds i{position:absolute;left:-30cqmin;top:var(--t);width:var(--w);height:calc(var(--w)*.34);background:#fff;border-radius:99px;opacity:.92;animation:cloud var(--d) linear var(--dl) infinite}
-.clouds i::before,.clouds i::after{content:"";position:absolute;background:#fff;border-radius:50%}
-.clouds i::before{left:16%;top:-52%;width:42%;height:150%}
-.clouds i::after{left:46%;top:-34%;width:34%;height:115%}
-@keyframes cloud{to{transform:translateX(calc(100cqw + 70cqmin))}}
-.cl-wrap{position:relative;display:flex;align-items:center;gap:7cqw}
-.analog{width:min(84cqh,40cqw);flex:none;overflow:visible;filter:drop-shadow(0 1.4cqmin 0 #3b4a7a30)}
+/* ---------- TEMA 4: ELEGAN (analog, bulan, siluet) ---------- */
+#s-elegan{align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(80% 90% at 78% 22%,#2a4684 0%,#0f1c44 46%,#050818 100%)}
+.eg-moon{position:absolute;right:9%;top:6%;width:min(26cqw,48cqh);aspect-ratio:1;filter:drop-shadow(0 0 3cqmin #ffe7b088)}
+.eg-cliff{position:absolute;right:0;bottom:0;width:38cqw;height:24cqh;pointer-events:none}
+.eg-girl{position:absolute;z-index:2;right:13%;bottom:12.5cqh;height:58cqh;aspect-ratio:100/260;color:#040714;--rim:#b9cbff;overflow:visible;pointer-events:none}
+.eg-wrap{position:relative;z-index:3;display:flex;align-items:center;gap:5cqw;margin-right:22cqw}
+.eg-face{width:min(70cqh,30cqw);flex:none;overflow:visible;filter:drop-shadow(0 1.4cqmin 2cqmin #0008)}
 .hand{transform-origin:100px 100px;transform-box:view-box}
 #hs{transition:transform .38s cubic-bezier(.3,1.8,.5,1)}
-.analog .eyes{transform-origin:100px 76px;animation:eyeblink 5s infinite}
-.cl-info{display:flex;flex-direction:column;align-items:flex-start;gap:2.4cqmin;color:#3b4a7a}
-.cl-info .time{font-size:min(13cqw,24cqh);font-weight:700;justify-content:flex-start;text-shadow:.04em .05em 0 #fff}
-.cl-info .colon,.cl-info .sec{color:#ff6fa3}
-.cl-info .pill{border-color:#3b4a7a;color:#3b4a7a;box-shadow:.8cqmin 1cqmin 0 #3b4a7a;background:#fff;font-size:min(2.9cqw,5.4cqh)}
+.eg-info{display:flex;flex-direction:column;align-items:flex-start;gap:2cqmin;color:#f4e6c3}
+.eg-info .time{font-size:min(10cqw,19cqh);font-weight:500;justify-content:flex-start;text-shadow:0 0 .3em #e9b87255}
+.eg-info .colon{color:#e9b872}
+.eg-info .sec{color:#8fdde8}
+.eg-info .date{font-size:min(2.5cqw,4.8cqh);letter-spacing:.14em;text-transform:uppercase;color:#e9b872;white-space:nowrap}
+
+/* ---------- TEMA 5: KUSTOM (wallpaper galeri) ---------- */
+#s-custom{align-items:center;justify-content:center;background:#0d1426}
+.cu-bg{position:absolute;inset:-5%;background-image:var(--cu-img,none),linear-gradient(135deg,#14224a,#2a6f8f 60%,#e9b872);background-size:cover;background-position:center;filter:blur(calc(var(--blur,0)*1px))}
+.cu-shade{position:absolute;inset:0;background:#000;opacity:var(--shade,.3)}
+.cu-clock{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.4cqmin;color:var(--cc,#fff);font-size:min(22cqw,40cqh)}
+.cu-clock .date{font-size:.15em;letter-spacing:.05em;font-weight:500;white-space:nowrap}
+.cu-clock[data-font=round]{font-family:Fredoka,ui-rounded,sans-serif;font-weight:700}
+.cu-clock[data-font=comic]{font-family:Bangers,Fredoka,sans-serif;font-weight:400;letter-spacing:.03em}
+.cu-clock[data-font=slim]{font-family:system-ui,"Segoe UI",Roboto,sans-serif;font-weight:200}
+.cu-clock[data-style=shadow]{text-shadow:0 .025em .09em #000a}
+.cu-clock[data-style=shadow] .date{text-shadow:0 .1em .4em #000b}
+.cu-clock[data-style=glow]{text-shadow:0 0 .08em var(--cc),0 0 .3em var(--cc)}
+.cu-clock[data-style=glow] .date{text-shadow:0 0 .5em var(--cc)}
+.cu-clock[data-style=sticker]{-webkit-text-stroke:.05em #111;paint-order:stroke fill;text-shadow:.04em .05em 0 #111}
+.cu-clock[data-style=sticker] .date{-webkit-text-stroke:.3em #111;text-shadow:.12em .15em 0 #111}
+.cu-clock[data-style=sticker] .time .sec{-webkit-text-stroke-width:.14em;text-shadow:.11em .14em 0 #111}
+
+/* ---------- Posisi & ukuran jam (semua tema) ---------- */
+.mv{transform:translate(calc(var(--ox,0)*1cqw),calc(var(--oy,0)*1cqh)) scale(var(--k,1));transform-origin:50% 50%}
+body.edit .scene .mv{outline:.6cqmin dashed #6fd8e6;outline-offset:2.4cqmin;border-radius:2cqmin}
+#editBar{position:fixed;top:max(10px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:8px;background:#0d1426f0;border-radius:99px;padding:6px 8px 6px 16px;font-size:14px;box-shadow:0 6px 24px #0008;white-space:nowrap}
+#editBar button{background:#ffffff1f;border-radius:99px;padding:7px 13px;font-size:14px}
+#editBar button.ok{background:#4fd1c5;color:#04252c;font-weight:700}
+
+/* ---------- Panel Kustom ---------- */
+.cu{margin-top:10px;padding-top:6px;border-top:1px solid #ffffff14}
+.cu .btns{display:flex;gap:8px;margin-top:6px}
+.cu .ghost{padding:11px;font-size:15px}
+.cu .ghost.small{width:auto;flex:none;padding:11px 16px;background:#b3122a55}
+.mini{font-size:12.5px;opacity:.65;margin:10px 2px 6px}
+.opts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.opt{background:#ffffff14;border:2px solid transparent;border-radius:12px;padding:7px 14px;font-size:15px}
+.opt.on{background:#4fd1c533;border-color:#6fd8e6}
+.col{width:34px;height:34px;border-radius:50%;border:3px solid #ffffff40;position:relative;flex:none}
+.col.on{border-color:#fff;box-shadow:0 0 0 2px #4fd1c5}
+.col.pick{overflow:hidden;background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)}
+.col.pick input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
 
 /* ---------- Tata letak tegak (mode paksa / pratinjau sempit) ---------- */
 @container (max-aspect-ratio:1/1){
-  .neko-panel{font-size:min(24cqw,15cqh)}
-  .cat,.paws{width:min(42cqw,30cqh)}
-  .pill{font-size:min(5.5cqw,3.4cqh)}
+  #s-tokyo{align-items:flex-start;padding-top:14cqh}
+  .tk-clock{margin-right:0;align-items:center;font-size:min(27cqw,14cqh)}
+  .tk-girl{height:40cqh;right:3%}
+  .tk-sign{top:4%;left:6%;font-size:min(4.4cqw,2.6cqh)}
   .sak-time .time{font-size:min(30cqw,18cqh)}
   .sak-time .date{font-size:min(5cqw,3.2cqh)}
+  .sak-time{margin-left:0}
+  .sak-girl{left:5%;height:30cqh;bottom:4.5%}
+  .moon{width:min(30cqw,18cqh)}
   .pop-wrap{--ch:min(26cqh,50cqw)}
   .pop-row{flex-direction:column;gap:3cqmin}
   .dots{display:none}
   .burst{right:-3cqmin;top:-17cqmin;width:min(21cqw,13cqh)}
   .tag{font-size:min(7cqw,4.2cqh)}
-  .cl-wrap{flex-direction:column;gap:4cqh}
-  .analog{width:min(78cqw,46cqh)}
-  .cl-info{align-items:center}
-  .cl-info .time{font-size:min(22cqw,12cqh);justify-content:center}
-  .cl-info .pill{font-size:min(5cqw,3cqh)}
+  .eg-wrap{flex-direction:column;margin-right:0;gap:4cqh;margin-top:-8cqh}
+  .eg-face{width:min(72cqw,38cqh)}
+  .eg-info{align-items:center}
+  .eg-info .time{font-size:min(22cqw,11cqh);justify-content:center}
+  .eg-info .date{font-size:min(4cqw,2.4cqh)}
+  .eg-moon{width:min(36cqw,20cqh);top:3%}
+  .eg-girl{height:26cqh;right:5%;bottom:9cqh}
+  .eg-cliff{width:56cqw;height:12cqh}
 }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="dress" viewBox="0 0 100 260" overflow="visible">
+  <path class="gp" d="M71 30C70 15 52 13 48 30C46 42 50 50 46 62C36 80 22 96 6 104C22 104 36 98 46 90C40 104 30 122 16 138C34 128 48 112 54 94C58 80 60 64 62 52C66 46 72 40 71 30Z"/>
+  <path class="gp" d="M52 54C40 76 26 100 12 124C30 114 44 94 54 72Z"/>
+  <ellipse class="gp" cx="62" cy="35" rx="10" ry="12.5"/>
+  <path class="gp" d="M70 33L75 39L70 42Z"/>
+  <rect class="gp" x="59" y="45" width="6" height="12"/>
+  <path class="gp" d="M50 60Q62 54 74 60L70 92Q62 96 54 92Z"/>
+  <path class="gp" d="M54 90H70C80 130 88 190 94 232C86 244 78 236 68 242C58 248 52 238 42 244C32 248 22 238 8 234C22 190 44 130 54 90Z"/>
+  <path class="gp arm" d="M72 62Q86 76 76 92"/>
+  <path class="gp arm" d="M52 62Q42 80 52 96"/>
+</symbol></defs></svg>
 
 <!-- BERANDA -->
 <div id="home">
   <div>
-    <h1>Jam Meja <b>♡</b></h1>
-    <p class="sub">Jam layar penuh bergaya anime &amp; kartun.</p>
+    <h1>Jam Meja <b>☾</b></h1>
+    <p class="sub">Jam layar penuh bergaya anime: siluet, neon, dan senja.</p>
   </div>
   <div class="tilt">
-    <svg viewBox="0 0 40 40"><rect x="11" y="4" width="18" height="32" rx="5" fill="none" stroke="#ff8fb8" stroke-width="3"/><circle cx="20" cy="31" r="1.8" fill="#ff8fb8"/></svg>
+    <svg viewBox="0 0 40 40"><rect x="11" y="4" width="18" height="32" rx="5" fill="none" stroke="#6fd8e6" stroke-width="3"/><circle cx="20" cy="31" r="1.8" fill="#6fd8e6"/></svg>
     <span>Miringkan HP ke samping, jam otomatis tampil layar penuh.</span>
   </div>
   <div id="slot"></div>
@@ -207,49 +263,36 @@ body.clock #stage{position:fixed;inset:0;width:100%;height:100%;z-index:5;aspect
 <!-- PANGGUNG JAM -->
 <div id="stage" data-theme="neko">
 
-  <!-- Neko -->
-  <div class="scene" id="s-neko">
-    <div class="floaties" id="floaties"></div>
-    <div class="neko-stack">
-      <div class="neko-wrap">
-        <svg class="tail" viewBox="0 0 60 110">
-          <path d="M12 104 C52 96 58 56 32 36 C20 27 24 10 40 12" fill="none" stroke="#5b3a3a" stroke-width="22" stroke-linecap="round"/>
-          <path d="M12 104 C52 96 58 56 32 36 C20 27 24 10 40 12" fill="none" stroke="#ffd6a5" stroke-width="13" stroke-linecap="round"/>
-          <path d="M44 14 C38 10 33 14 31 20" fill="none" stroke="#ff9fbd" stroke-width="13" stroke-linecap="round" opacity="0"/>
-        </svg>
-        <svg class="cat" viewBox="0 0 200 130">
-          <g stroke="#5b3a3a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
-            <path d="M30 56 L36 8 L80 36 Z" fill="#ffd6a5"/>
-            <path d="M170 56 L164 8 L120 36 Z" fill="#ffd6a5"/>
-            <ellipse cx="100" cy="72" rx="74" ry="50" fill="#ffd6a5"/>
-          </g>
-          <path d="M44 42 L46 22 L62 33 Z" fill="#ff9fbd"/>
-          <path d="M156 42 L154 22 L138 33 Z" fill="#ff9fbd"/>
-          <g stroke="#e8a56a" stroke-width="4" stroke-linecap="round"><path d="M100 26v14"/><path d="M84 29l4 12"/><path d="M116 29l-4 12"/></g>
-          <g class="eyes">
-            <ellipse cx="68" cy="70" rx="9" ry="12" fill="#3a2525"/><ellipse cx="132" cy="70" rx="9" ry="12" fill="#3a2525"/>
-            <circle cx="71" cy="65" r="3.6" fill="#fff"/><circle cx="135" cy="65" r="3.6" fill="#fff"/>
-            <circle cx="65" cy="75" r="1.8" fill="#fff"/><circle cx="129" cy="75" r="1.8" fill="#fff"/>
-          </g>
-          <ellipse cx="46" cy="88" rx="11" ry="7" fill="#ff8fb3" opacity=".65"/><ellipse cx="154" cy="88" rx="11" ry="7" fill="#ff8fb3" opacity=".65"/>
-          <path d="M94 82h12l-6 7z" fill="#ff6f95"/>
-          <g fill="none" stroke="#5b3a3a" stroke-width="3.5" stroke-linecap="round">
-            <path d="M100 89q-5 8 -13 3"/><path d="M100 89q5 8 13 3"/>
-            <path d="M30 80L8 74"/><path d="M30 89L6 91"/><path d="M170 80L192 74"/><path d="M170 89L194 91"/>
-          </g>
-        </svg>
-        <div class="neko-panel">
-          <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
-        </div>
-        <svg class="paws" viewBox="0 0 200 130">
-          <g stroke="#5b3a3a" stroke-width="5" fill="#fff3e4" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="62" cy="112" rx="19" ry="11"/><ellipse cx="138" cy="112" rx="19" ry="11"/>
-          </g>
-          <g stroke="#5b3a3a" stroke-width="3" stroke-linecap="round"><path d="M55 108v8"/><path d="M62 107v9"/><path d="M69 108v8"/><path d="M131 108v8"/><path d="M138 107v9"/><path d="M145 108v8"/></g>
-        </svg>
-      </div>
-      <div class="pill date" data-date></div>
+  <!-- Tokyo -->
+  <div class="scene" id="s-tokyo">
+    <svg class="tk-city" viewBox="0 0 1000 300" preserveAspectRatio="xMidYMax slice"><defs><pattern id="w1" width="30" height="36" patternUnits="userSpaceOnUse"><rect x="2" y="3" width="6" height="7" fill="#f6c27a"/><rect x="12" y="3" width="6" height="7" fill="#f6c27a"/><rect x="22" y="27" width="6" height="7" fill="#f6c27a"/></pattern><pattern id="w2" width="30" height="36" patternUnits="userSpaceOnUse"><rect x="2" y="27" width="6" height="7" fill="#7ee8f0"/><rect x="12" y="3" width="6" height="7" fill="#7ee8f0"/><rect x="22" y="15" width="6" height="7" fill="#7ee8f0"/></pattern><filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="-20" y="80" width="66" height="220" fill="#0f1b40"/><rect x="-20" y="80" width="66" height="220" fill="url(#w2)" opacity="0.55"/><rect x="52" y="133" width="67" height="167" fill="#0f1b40"/><rect x="52" y="133" width="67" height="167" fill="url(#w2)" opacity="0.55"/><rect x="123" y="167" width="50" height="133" fill="#0f1b40"/><rect x="123" y="167" width="50" height="133" fill="url(#w2)" opacity="0.55"/><rect x="176" y="112" width="78" height="188" fill="#0f1b40"/><rect x="176" y="112" width="78" height="188" fill="url(#w2)" opacity="0.55"/><rect x="254" y="152" width="66" height="148" fill="#0f1b40"/><rect x="254" y="152" width="66" height="148" fill="url(#w2)" opacity="0.55"/><path d="M287 152 V121" stroke="#0f1b40" stroke-width="2"/><rect x="326" y="185" width="78" height="115" fill="#0f1b40"/><rect x="326" y="185" width="78" height="115" fill="url(#w2)" opacity="0.55"/><rect x="407" y="107" width="66" height="193" fill="#0f1b40"/><rect x="407" y="107" width="66" height="193" fill="url(#w2)" opacity="0.55"/><rect x="478" y="111" width="48" height="189" fill="#0f1b40"/><rect x="478" y="111" width="48" height="189" fill="url(#w2)" opacity="0.55"/><path d="M502 111 V81" stroke="#0f1b40" stroke-width="2"/><rect x="526" y="186" width="41" height="114" fill="#0f1b40"/><rect x="526" y="186" width="41" height="114" fill="url(#w2)" opacity="0.55"/><path d="M546 186 V165" stroke="#0f1b40" stroke-width="2"/><rect x="571" y="91" width="39" height="209" fill="#0f1b40"/><rect x="571" y="91" width="39" height="209" fill="url(#w2)" opacity="0.55"/><rect x="613" y="83" width="75" height="217" fill="#0f1b40"/><rect x="613" y="83" width="75" height="217" fill="url(#w2)" opacity="0.55"/><path d="M650 83 V62" stroke="#0f1b40" stroke-width="2"/><rect x="693" y="127" width="56" height="173" fill="#0f1b40"/><rect x="693" y="127" width="56" height="173" fill="url(#w2)" opacity="0.55"/><path d="M721 127 V111" stroke="#0f1b40" stroke-width="2"/><rect x="752" y="155" width="79" height="145" fill="#0f1b40"/><rect x="752" y="155" width="79" height="145" fill="url(#w2)" opacity="0.55"/><rect x="835" y="100" width="43" height="200" fill="#0f1b40"/><rect x="835" y="100" width="43" height="200" fill="url(#w2)" opacity="0.55"/><path d="M856 100 V79" stroke="#0f1b40" stroke-width="2"/><rect x="882" y="187" width="56" height="113" fill="#0f1b40"/><rect x="882" y="187" width="56" height="113" fill="url(#w2)" opacity="0.55"/><path d="M910 187 V170" stroke="#0f1b40" stroke-width="2"/><rect x="941" y="82" width="44" height="218" fill="#0f1b40"/><rect x="941" y="82" width="44" height="218" fill="url(#w2)" opacity="0.55"/><path d="M963 82 V66" stroke="#0f1b40" stroke-width="2"/><rect x="985" y="163" width="38" height="137" fill="#0f1b40"/><rect x="985" y="163" width="38" height="137" fill="url(#w2)" opacity="0.55"/><path d="M1004 163 V148" stroke="#0f1b40" stroke-width="2"/><rect x="-20" y="150" width="74" height="150" fill="#070c20"/><rect x="-20" y="150" width="74" height="150" fill="url(#w1)" opacity="0.85"/><rect x="54" y="160" width="86" height="140" fill="#070c20"/><rect x="54" y="160" width="86" height="140" fill="url(#w1)" opacity="0.85"/><path d="M97 160 V138" stroke="#070c20" stroke-width="2"/><rect x="142" y="201" width="55" height="99" fill="#070c20"/><rect x="142" y="201" width="55" height="99" fill="url(#w1)" opacity="0.85"/><path d="M169 201 V174" stroke="#070c20" stroke-width="2"/><rect x="203" y="223" width="57" height="77" fill="#070c20"/><rect x="203" y="223" width="57" height="77" fill="url(#w1)" opacity="0.85"/><path d="M231 223 V206" stroke="#070c20" stroke-width="2"/><rect x="260" y="181" width="53" height="119" fill="#070c20"/><rect x="260" y="181" width="53" height="119" fill="url(#w1)" opacity="0.85"/><rect x="314" y="169" width="93" height="131" fill="#070c20"/><rect x="314" y="169" width="93" height="131" fill="url(#w1)" opacity="0.85"/><path d="M360 169 V139" stroke="#070c20" stroke-width="2"/><rect x="408" y="142" width="96" height="158" fill="#070c20"/><rect x="408" y="142" width="96" height="158" fill="url(#w1)" opacity="0.85"/><path d="M456 142 V108" stroke="#070c20" stroke-width="2"/><rect x="507" y="190" width="57" height="110" fill="#070c20"/><rect x="507" y="190" width="57" height="110" fill="url(#w1)" opacity="0.85"/><rect x="565" y="206" width="50" height="94" fill="#070c20"/><rect x="565" y="206" width="50" height="94" fill="url(#w1)" opacity="0.85"/><rect x="621" y="202" width="87" height="98" fill="#070c20"/><rect x="621" y="202" width="87" height="98" fill="url(#w1)" opacity="0.85"/><rect x="708" y="217" width="63" height="83" fill="#070c20"/><rect x="708" y="217" width="63" height="83" fill="url(#w1)" opacity="0.85"/><rect x="777" y="158" width="88" height="142" fill="#070c20"/><rect x="777" y="158" width="88" height="142" fill="url(#w1)" opacity="0.85"/><rect x="865" y="213" width="59" height="87" fill="#070c20"/><rect x="865" y="213" width="59" height="87" fill="url(#w1)" opacity="0.85"/><rect x="924" y="162" width="99" height="138" fill="#070c20"/><rect x="924" y="162" width="99" height="138" fill="url(#w1)" opacity="0.85"/><path d="M973 162 V139" stroke="#070c20" stroke-width="2"/></svg>
+    <div class="tk-ground"></div>
+    <div class="tk-sign">TOKYO</div>
+    <div class="tk-clock mv">
+      <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
+      <div class="date" data-date></div>
     </div>
+    <svg class="tk-girl" viewBox="0 0 140 300">
+      <ellipse cx="72" cy="291" rx="50" ry="7" fill="#4fd1c5" opacity=".2"/>
+      <g transform="rotate(-7 70 170)">
+        <path d="M70 70V184" stroke="#02040a" stroke-width="3.4"/>
+        <path d="M70 184q0 11-8 11" fill="none" stroke="#02040a" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M4 76Q70-18 136 76Q104 62 87 72Q70 60 53 72Q36 62 4 76Z" fill="#070d26" stroke="#6fe3ea" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M70 12L40 70M70 12L100 70M70 12V66" stroke="#24406e" stroke-width="1" fill="none"/>
+        <circle cx="70" cy="10" r="2.4" fill="#02040a"/>
+      </g>
+      <g fill="#02040a" stroke="#5f8fc4" stroke-width=".8" stroke-opacity=".65" stroke-linejoin="round">
+        <path d="M60 104C54 90 80 84 86 102C90 116 84 132 82 146C80 176 62 198 36 208C52 184 58 158 58 134C58 120 58 112 60 104Z"/>
+        <ellipse cx="72" cy="112" rx="11" ry="13"/>
+        <path d="M60 108C62 96 82 96 84 108C76 101 67 101 60 108Z"/>
+        <rect x="68.5" y="122" width="7" height="12"/>
+        <path d="M54 134Q72 126 90 134L96 196L106 226Q72 236 38 226L48 196Z"/>
+        <path d="M58 226L55 283L65 283L70 228Z"/>
+        <path d="M74 228L79 283L89 283L90 226Z"/>
+      </g>
+      <path d="M88 138Q106 160 76 168" fill="none" stroke="#02040a" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    <div class="rain" id="rain"></div>
   </div>
 
   <!-- Sakura -->
@@ -258,32 +301,31 @@ body.clock #stage{position:fixed;inset:0;width:100%;height:100%;z-index:5;aspect
     <svg class="moon" viewBox="0 0 100 100"><path d="M62 10 A40 40 0 1 0 90 66 A31 31 0 1 1 62 10 Z" fill="#fff3c4"/></svg>
     <i class="shoot"></i>
     <svg class="land" viewBox="0 0 1000 220" preserveAspectRatio="xMidYMax meet">
-      <path d="M0 220V150C130 120 230 160 360 142C480 126 560 168 690 146C810 126 900 150 1000 130V220Z" fill="#2a1558" opacity=".9"/>
-      <path d="M0 220V172C110 150 210 182 330 168C470 150 560 190 700 172C820 156 910 176 1000 160V220Z" fill="#150a33"/>
-      <!-- torii -->
-      <g fill="#2b0f3a">
+      <path d="M0 220V150C130 120 230 160 360 142C480 126 560 168 690 146C810 126 900 150 1000 130V220Z" fill="#1a2a5e" opacity=".92"/>
+      <path d="M0 220V172C110 150 210 182 330 168C470 150 560 190 700 172C820 156 910 176 1000 160V220Z" fill="#090e2c"/>
+      <g fill="#6b1526">
         <path d="M705 92Q790 108 875 92L872 106Q790 122 708 106Z"/>
         <rect x="722" y="118" width="136" height="7" rx="3"/>
         <rect x="734" y="104" width="10" height="68"/><rect x="836" y="104" width="10" height="68"/>
       </g>
-      <!-- pohon sakura -->
       <g>
-        <path d="M118 182C124 150 108 126 84 100M112 140C130 126 142 114 150 98M100 118C84 112 70 108 58 94" fill="none" stroke="#1d0b2e" stroke-width="11" stroke-linecap="round"/>
-        <g fill="#ff9ab8" opacity=".9"><circle cx="84" cy="84" r="26"/><circle cx="122" cy="76" r="22"/><circle cx="58" cy="102" r="18"/><circle cx="152" cy="94" r="17"/></g>
-        <g fill="#ffd0df" opacity=".85"><circle cx="96" cy="72" r="14"/><circle cx="132" cy="66" r="11"/><circle cx="66" cy="92" r="9"/></g>
+        <path d="M118 182C124 150 108 126 84 100M112 140C130 126 142 114 150 98M100 118C84 112 70 108 58 94" fill="none" stroke="#0a0a22" stroke-width="11" stroke-linecap="round"/>
+        <g fill="#d68ca6" opacity=".85"><circle cx="84" cy="84" r="26"/><circle cx="122" cy="76" r="22"/><circle cx="58" cy="102" r="18"/><circle cx="152" cy="94" r="17"/></g>
+        <g fill="#f3cbd8" opacity=".8"><circle cx="96" cy="72" r="14"/><circle cx="132" cy="66" r="11"/><circle cx="66" cy="92" r="9"/></g>
       </g>
     </svg>
+    <svg class="sak-girl" viewBox="0 0 100 260"><use href="#dress"/></svg>
     <div class="petals" id="petals"></div>
-    <div class="sak-time">
+    <div class="sak-time mv">
       <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
       <div class="date" data-date></div>
     </div>
   </div>
 
-  <!-- Pop -->
-  <div class="scene" id="s-pop">
+  <!-- Manga -->
+  <div class="scene" id="s-manga">
     <div class="speed"></div>
-    <div class="pop-wrap">
+    <div class="pop-wrap mv">
       <div class="pop-row">
         <div class="grp h"><div class="flip" data-flip="h1"></div><div class="flip" data-flip="h2"></div></div>
         <div class="dots"><i></i><i></i></div>
@@ -294,45 +336,49 @@ body.clock #stage{position:fixed;inset:0;width:100%;height:100%;z-index:5;aspect
     </div>
   </div>
 
-  <!-- Awan (analog) -->
-  <div class="scene" id="s-cloud">
-    <div class="clouds">
-      <i style="--t:10%;--w:26cqmin;--d:70s;--dl:-20s"></i>
-      <i style="--t:62%;--w:20cqmin;--d:90s;--dl:-60s"></i>
-      <i style="--t:30%;--w:16cqmin;--d:60s;--dl:-5s"></i>
-      <i style="--t:78%;--w:30cqmin;--d:110s;--dl:-80s"></i>
-    </div>
-    <div class="cl-wrap">
-      <svg class="analog" viewBox="0 0 200 200">
-        <g stroke="#3b4a7a" stroke-width="5">
-          <circle cx="42" cy="26" r="21" fill="#ffd1e0"/><circle cx="158" cy="26" r="21" fill="#ffd1e0"/>
+  <!-- Elegan -->
+  <div class="scene" id="s-elegan">
+    <div class="stars" id="stars2"></div>
+    <svg class="eg-moon" viewBox="0 0 100 100"><path d="M62 10 A40 40 0 1 0 90 66 A31 31 0 1 1 62 10 Z" fill="#fff1c9"/></svg>
+    <svg class="eg-cliff" viewBox="0 0 100 60" preserveAspectRatio="none"><path d="M0 60V44Q18 36 34 38Q52 24 70 22Q88 20 100 14V60Z" fill="#03050f"/></svg>
+    <svg class="eg-girl" viewBox="0 0 100 260"><use href="#dress"/></svg>
+    <div class="eg-wrap mv">
+      <svg class="eg-face" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="97" fill="#0b1430" stroke="#e9b872" stroke-width="3"/>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#e9b872" stroke-width=".7" opacity=".5"/>
+        <g id="ticks" stroke="#e9b872" stroke-linecap="round"></g>
+        <g font-family="Georgia,'Times New Roman',serif" font-size="14" fill="#e9b872" text-anchor="middle" dominant-baseline="central">
+          <text x="100" y="38">XII</text><text x="162" y="100">III</text><text x="100" y="162">VI</text><text x="38" y="100">IX</text>
         </g>
-        <circle cx="42" cy="26" r="10" fill="#ff9fbd"/><circle cx="158" cy="26" r="10" fill="#ff9fbd"/>
-        <circle cx="100" cy="102" r="92" fill="#ffd1e0" stroke="#3b4a7a" stroke-width="5"/>
-        <circle cx="100" cy="102" r="80" fill="#fffdf6" stroke="#3b4a7a" stroke-width="4"/>
-        <g id="ticks" fill="#3b4a7a"></g>
-        <g class="eyes">
-          <circle cx="78" cy="76" r="6" fill="#3b4a7a"/><circle cx="122" cy="76" r="6" fill="#3b4a7a"/>
-          <circle cx="80" cy="73.5" r="2" fill="#fff"/><circle cx="124" cy="73.5" r="2" fill="#fff"/>
-        </g>
-        <ellipse cx="64" cy="90" rx="9" ry="5.5" fill="#ff9db8" opacity=".75"/><ellipse cx="136" cy="90" rx="9" ry="5.5" fill="#ff9db8" opacity=".75"/>
-        <path d="M91 88q4.5 7 9 0q4.5 7 9 0" fill="none" stroke="#3b4a7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <g transform="translate(0,2)">
-          <g class="hand" id="hh"><line x1="100" y1="100" x2="100" y2="58" stroke="#3b4a7a" stroke-width="10" stroke-linecap="round"/></g>
-          <g class="hand" id="hm"><line x1="100" y1="100" x2="100" y2="34" stroke="#3b4a7a" stroke-width="6.5" stroke-linecap="round"/></g>
-          <g class="hand" id="hs"><line x1="100" y1="114" x2="100" y2="28" stroke="#ff6fa3" stroke-width="3.2" stroke-linecap="round"/><circle cx="100" cy="36" r="5" fill="#ff6fa3"/></g>
-          <circle cx="100" cy="100" r="6.5" fill="#fffdf6" stroke="#3b4a7a" stroke-width="3.5"/>
-        </g>
+        <path transform="translate(86 62) scale(.28)" d="M62 10 A40 40 0 1 0 90 66 A31 31 0 1 1 62 10 Z" fill="#e9b872" opacity=".9"/>
+        <g class="hand" id="hh"><line x1="100" y1="106" x2="100" y2="58" stroke="#e9b872" stroke-width="6" stroke-linecap="round"/></g>
+        <g class="hand" id="hm"><line x1="100" y1="108" x2="100" y2="30" stroke="#f6e3bd" stroke-width="3.8" stroke-linecap="round"/></g>
+        <g class="hand" id="hs"><line x1="100" y1="116" x2="100" y2="22" stroke="#6fd8e6" stroke-width="1.6" stroke-linecap="round"/></g>
+        <circle cx="100" cy="100" r="5.5" fill="#e9b872" stroke="#0b1430" stroke-width="2"/>
       </svg>
-      <div class="cl-info">
+      <div class="eg-info">
         <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
-        <div class="pill date" data-date></div>
+        <div class="date" data-date></div>
       </div>
+    </div>
+  </div>
+
+  <!-- Kustom -->
+  <div class="scene" id="s-custom">
+    <div class="cu-bg"></div>
+    <div class="cu-shade"></div>
+    <div class="cu-clock mv" data-font="round" data-style="shadow">
+      <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
+      <div class="date" data-date></div>
     </div>
   </div>
 
   <div id="dimmer"></div>
 </div>
+
+<!-- BAR ATUR POSISI -->
+<div id="editBar" hidden><span>Geser · cubit</span><button id="editReset">Tengahkan</button><button id="editDone" class="ok">Selesai</button></div>
+<input type="file" id="fileIn" accept="image/*" hidden>
 
 <!-- LEMBAR PENGATURAN (saat mode jam) -->
 <div id="sheet">
@@ -348,32 +394,62 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ---------- Pengaturan ---------- */
 const KEY = 'jamMeja.v1';
-const DEF = { theme: 'neko', h24: true, sec: true, date: true, awake: true, dim: 0 };
+const DEF = { theme: 'tokyo', h24: true, sec: true, date: true, awake: true, dim: 0, hasImg: false,
+  cu: { font: 'round', color: '#ffffff', style: 'shadow', shade: 30, blur: 0 }, lay: {} };
 let S;
-try { S = { ...DEF, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch (e) { S = { ...DEF }; }
+try {
+  const o = JSON.parse(localStorage.getItem(KEY) || '{}');
+  S = { ...DEF, ...o, cu: { ...DEF.cu, ...(o.cu || {}) }, lay: { ...(o.lay || {}) } };
+} catch (e) { S = { ...DEF, cu: { ...DEF.cu }, lay: {} }; }
+S.theme = ({ neko: 'tokyo', pop: 'manga', cloud: 'elegan' })[S.theme] || S.theme;
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
 
 const THEMES = [
-  { id: 'neko',   name: 'Neko',   emoji: '🐱', color: '#ffb3c7' },
-  { id: 'sakura', name: 'Sakura', emoji: '🌸', color: '#231658' },
-  { id: 'pop',    name: 'Pop',    emoji: '⚡', color: '#ffd93b' },
-  { id: 'cloud',  name: 'Awan',   emoji: '☁️', color: '#7fc8ff' }
+  { id: 'tokyo',  name: 'Tokyo',  emoji: '🌃', color: '#050818' },
+  { id: 'sakura', name: 'Sakura', emoji: '🌸', color: '#050a22' },
+  { id: 'manga',  name: 'Manga',  emoji: '📖', color: '#ece9e0' },
+  { id: 'elegan', name: 'Elegan', emoji: '🌙', color: '#050818' },
+  { id: 'custom', name: 'Kustom', emoji: '🖼️', color: '#14224a' }
 ];
-if (!THEMES.some(t => t.id === S.theme)) S.theme = 'neko';
+if (!THEMES.some(t => t.id === S.theme)) S.theme = 'tokyo';
 
 const stage = $('#stage'), slot = $('#slot'), sheet = $('#sheet');
 const metaTheme = $('#metaTheme');
 const standalone = matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches;
 
 /* ---------- Panel ---------- */
+const lay = () => (S.lay[S.theme] = S.lay[S.theme] || { x: 0, y: 0, s: 1 });
+function customHTML() {
+  if (S.theme !== 'custom') return '';
+  const fonts = [['round', 'Bulat', 'font-family:Fredoka;font-weight:700'], ['comic', 'Komik', 'font-family:Bangers'], ['slim', 'Tipis', 'font-weight:200']];
+  const styles = [['shadow', 'Bayangan'], ['glow', 'Glow'], ['sticker', 'Stiker']];
+  const colors = ['#ffffff', '#ffd1e0', '#fff3a0', '#9be7ff', '#b8ffd6', '#111111'];
+  return `<div class="cu">
+    <div class="btns"><button class="ghost" data-act="pick">🖼️ ${S.hasImg ? 'Ganti foto' : 'Pilih foto dari galeri'}</button>${S.hasImg ? '<button class="ghost small" data-act="delimg">Hapus</button>' : ''}</div>
+    <p class="mini">Tip: pakai ilustrasi karakter favoritmu sebagai wallpaper, lalu geser jam supaya tidak menutupi wajahnya.</p>
+    <div class="mini">Font</div>
+    <div class="opts">${fonts.map(([k, n, st]) => `<button class="opt ${S.cu.font === k ? 'on' : ''}" style="${st}" data-act="cu" data-k="font" data-v="${k}">${n}</button>`).join('')}</div>
+    <div class="mini">Gaya</div>
+    <div class="opts">${styles.map(([k, n]) => `<button class="opt ${S.cu.style === k ? 'on' : ''}" data-act="cu" data-k="style" data-v="${k}">${n}</button>`).join('')}</div>
+    <div class="mini">Warna</div>
+    <div class="opts">${colors.map(c => `<button class="col ${S.cu.color === c ? 'on' : ''}" style="background:${c}" data-act="cu" data-k="color" data-v="${c}"></button>`).join('')}<label class="col pick"><input type="color" value="${S.cu.color}" data-act="cu-color"></label></div>
+    <div class="rows">
+      <label class="row"><span>Gelapkan foto</span><input type="range" min="0" max="85" value="${S.cu.shade}" data-act="cu-num" data-k="shade"></label>
+      <label class="row"><span>Blur foto</span><input type="range" min="0" max="20" value="${S.cu.blur}" data-act="cu-num" data-k="blur"></label>
+    </div></div>`;
+}
 function row(label, key) {
   return `<button class="row ${S[key] ? 'on' : ''}" data-act="tog" data-v="${key}"><span>${label}</span><i class="sw"></i></button>`;
 }
 function panelHTML() {
+  const cu = customHTML(), L = lay();
   return `<div class="themes">${THEMES.map(t =>
-      `<button class="chip ${S.theme === t.id ? 'on' : ''}" data-act="theme" data-v="${t.id}"><span>${t.emoji}</span>${t.name}</button>`).join('')}</div>
+      `<button class="chip ${S.theme === t.id ? 'on' : ''}" data-act="theme" data-v="${t.id}"><span>${t.emoji}</span>${t.name}</button>`).join('')}</div>${cu}
     <div class="rows">
       ${row('Format 24 jam', 'h24')}${row('Tampilkan detik', 'sec')}${row('Tampilkan tanggal', 'date')}${row('Layar tetap menyala', 'awake')}
+      <label class="row"><span>Ukuran jam</span><input type="range" min="30" max="250" value="${Math.round(L.s * 100)}" data-act="size"></label>
+      <button class="row" data-act="edit"><span>✋ Atur posisi &amp; ukuran jam</span><span>›</span></button>
+      <div class="row"><span>Posisi cepat</span><span class="opts"><button class="opt" data-act="pos" data-v="-24">◀</button><button class="opt" data-act="pos" data-v="0">●</button><button class="opt" data-act="pos" data-v="24">▶</button></span></div>
       <label class="row"><span>Redup</span><input type="range" min="0" max="80" value="${S.dim}" data-act="dim"></label>
     </div>`;
 }
@@ -387,6 +463,7 @@ function apply() {
   stage.classList.toggle('h12', !S.h24);
   stage.style.setProperty('--dim', S.dim / 100);
   metaTheme.content = THEMES.find(t => t.id === S.theme).color;
+  applyLay(); applyCustom();
   renderPanels();
   tick(true);
   wakeSync();
@@ -403,22 +480,22 @@ const rnd = (a, b) => a + Math.random() * (b - a);
   // bintang
   $('#stars').innerHTML = Array.from({ length: 70 }, () =>
     `<i style="--s:${rnd(.25, .7).toFixed(2)}cqmin;--x:${rnd(0, 100).toFixed(1)}%;--y:${rnd(0, 62).toFixed(1)}%;--d:${rnd(1.5, 4.5).toFixed(1)}s;--dl:${rnd(-4, 0).toFixed(1)}s"></i>`).join('');
+  $('#stars2').innerHTML = $('#stars').innerHTML;
   // kelopak sakura
   $('#petals').innerHTML = Array.from({ length: 22 }, () =>
     `<span class="petal" style="--x:${rnd(-5, 100).toFixed(1)}%;--s:${rnd(1.6, 3.2).toFixed(2)}cqmin;--dx:${rnd(-30, 18).toFixed(1)}cqmin;--r:${Math.round(rnd(300, 800))}deg;--d:${rnd(9, 17).toFixed(1)}s;--dl:${rnd(-17, 0).toFixed(1)}s"></span>`).join('');
-  // hiasan neko melayang
-  const em = ['🐾', '💗', '⭐', '🐟', '🌸'];
-  $('#floaties').innerHTML = Array.from({ length: 10 }, (_, i) =>
-    `<span class="fl" style="--x:${(i * 10 + rnd(0, 8)).toFixed(0)}%;--s:${rnd(3.2, 5.6).toFixed(1)}cqmin;--d:${rnd(11, 20).toFixed(1)}s;--dl:${rnd(-20, 0).toFixed(1)}s">${em[i % em.length]}</span>`).join('');
+  // hujan Tokyo
+  $('#rain').innerHTML = Array.from({ length: 46 }, () =>
+    `<i style="--x:${rnd(0, 125).toFixed(1)}%;--l:${rnd(4, 9).toFixed(1)}cqmin;--d:${rnd(.7, 1.3).toFixed(2)}s;--dl:${rnd(-1.3, 0).toFixed(2)}s"></i>`).join('');
   // ledakan angka detik (Pop)
   const pts = [];
   for (let i = 0; i < 24; i++) { const r = i % 2 ? 37 : 48, a = Math.PI * i / 12; pts.push((50 + r * Math.cos(a)).toFixed(1) + ',' + (50 + r * Math.sin(a)).toFixed(1)); }
   $('#burstPoly').setAttribute('points', pts.join(' '));
   // penanda jam analog
   let t = '';
-  for (let i = 0; i < 12; i++) {
-    const a = i * Math.PI / 6, q = i % 3 === 0;
-    t += `<circle cx="${(100 + 66 * Math.sin(a)).toFixed(1)}" cy="${(102 - 66 * Math.cos(a)).toFixed(1)}" r="${q ? 5 : 3}"/>`;
+  for (let i = 0; i < 60; i++) {
+    const a = i * Math.PI / 30, big = i % 5 === 0, r1 = 90, r2 = big ? 82 : 86;
+    t += `<line x1="${(100 + r1 * Math.sin(a)).toFixed(1)}" y1="${(100 - r1 * Math.cos(a)).toFixed(1)}" x2="${(100 + r2 * Math.sin(a)).toFixed(1)}" y2="${(100 - r2 * Math.cos(a)).toFixed(1)}" stroke-width="${big ? 2.2 : .9}"/>`;
   }
   $('#ticks').innerHTML = t;
   // kartu flip
@@ -481,7 +558,7 @@ function applyMode() {
   const c = inClock();
   document.body.classList.toggle('clock', c);
   (c ? document.body : slot).appendChild(stage);
-  if (!c) closeSheet();
+  if (!c) { closeSheet(); if (editing) endEdit(); }
   $('#exitBtn').hidden = !forced;
   $('#fsBtn').hidden = !(c && !standalone && document.documentElement.requestFullscreen);
   renderPanels();
@@ -531,27 +608,150 @@ document.addEventListener('click', e => {
   if (a === 'theme') { S.theme = v; save(); apply(); }
   else if (a === 'tog') { S[v] = !S[v]; save(); apply(); }
   else if (a === 'close') closeSheet();
+  else if (a === 'cu') { S.cu[b.dataset.k] = v; save(); applyCustom(); renderPanels(); }
+  else if (a === 'pick') fileIn.click();
+  else if (a === 'delimg') clearWallpaper();
+  else if (a === 'edit') startEdit();
+  else if (a === 'pos') { const L = lay(); L.x = +v; L.y = 0; save(); applyLay(); }
   if (sheet.classList.contains('open')) kickSheet();
 });
 document.addEventListener('input', e => {
-  if (e.target.dataset.act !== 'dim') return;
-  S.dim = +e.target.value; save();
-  stage.style.setProperty('--dim', S.dim / 100);
-  $$('input[data-act=dim]').forEach(i => { if (i !== e.target) i.value = S.dim; });
+  const t = e.target, a = t.dataset && t.dataset.act;
+  if (a === 'dim') {
+    S.dim = +t.value; save();
+    stage.style.setProperty('--dim', S.dim / 100);
+    $$('input[data-act=dim]').forEach(i => { if (i !== t) i.value = S.dim; });
+  } else if (a === 'size') {
+    lay().s = +t.value / 100; save(); applyLay();
+  } else if (a === 'cu-num') {
+    S.cu[t.dataset.k] = +t.value; save(); applyCustom();
+  } else if (a === 'cu-color') {
+    S.cu.color = t.value; save(); applyCustom();
+  } else return;
   if (sheet.classList.contains('open')) kickSheet();
 });
 
-let pd = null;
-stage.addEventListener('pointerdown', e => { pd = { x: e.clientX, y: e.clientY }; });
-stage.addEventListener('pointercancel', () => { pd = null; });
+/* Gestur: ketuk/geser biasa, atau (mode atur) geser = pindah, cubit = ukuran */
+let pd = null, editing = false, g = null;
+const ptrs = new Map();
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+function resetG() {
+  g = null;
+  if (ptrs.size >= 2) {
+    const [a, b] = [...ptrs.values()];
+    g = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 };
+  }
+}
+stage.addEventListener('pointerdown', e => {
+  ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (editing) { try { stage.setPointerCapture(e.pointerId); } catch (_) {} resetG(); }
+  else pd = { x: e.clientX, y: e.clientY };
+});
+stage.addEventListener('pointermove', e => {
+  const p = ptrs.get(e.pointerId);
+  if (!p || !editing) return;
+  const px = p.x, py = p.y; p.x = e.clientX; p.y = e.clientY;
+  const L = lay(), W = stage.clientWidth / 100, H = stage.clientHeight / 100;
+  if (ptrs.size === 1) { L.x += (p.x - px) / W; L.y += (p.y - py) / H; }
+  else if (g) {
+    const [a, b] = [...ptrs.values()];
+    const d = Math.hypot(a.x - b.x, a.y - b.y) || 1, mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    L.s = clamp(L.s * d / g.d, .3, 3); L.x += (mx - g.mx) / W; L.y += (my - g.my) / H;
+    g = { d, mx, my };
+  }
+  L.x = clamp(L.x, -70, 70); L.y = clamp(L.y, -70, 70);
+  applyLay();
+});
+function endPtr(e) { ptrs.delete(e.pointerId); if (editing) { resetG(); save(); } }
+stage.addEventListener('pointercancel', e => { pd = null; endPtr(e); });
+stage.addEventListener('wheel', e => {
+  if (!editing) return;
+  e.preventDefault();
+  lay().s = clamp(lay().s * (e.deltaY < 0 ? 1.06 : .94), .3, 3); applyLay(); save();
+}, { passive: false });
 stage.addEventListener('pointerup', e => {
-  if (!pd) return;
+  endPtr(e);
+  if (editing || !pd) return;
   const dx = e.clientX - pd.x, dy = e.clientY - pd.y; pd = null;
   if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { shiftTheme(dx < 0 ? 1 : -1); return; }
   if (Math.hypot(dx, dy) < 14) {
     if (document.body.classList.contains('clock')) sheet.classList.contains('open') ? closeSheet() : openSheet();
     else shiftTheme(1);
   }
+});
+
+/* ---------- Posisi & ukuran jam ---------- */
+function applyLay() {
+  const L = lay();
+  stage.style.setProperty('--ox', L.x.toFixed(2));
+  stage.style.setProperty('--oy', L.y.toFixed(2));
+  stage.style.setProperty('--k', L.s.toFixed(3));
+  $$('input[data-act=size]').forEach(i => { i.value = Math.round(L.s * 100); });
+}
+const editBar = $('#editBar');
+async function startEdit() {
+  if (!document.body.classList.contains('clock')) await enterClock();
+  closeSheet();
+  editing = true; document.body.classList.add('edit'); editBar.hidden = false;
+}
+function endEdit() {
+  editing = false; document.body.classList.remove('edit'); editBar.hidden = true;
+  ptrs.clear(); g = null; save();
+}
+$('#editDone').addEventListener('click', endEdit);
+$('#editReset').addEventListener('click', () => { S.lay[S.theme] = { x: 0, y: 0, s: 1 }; save(); applyLay(); });
+
+/* ---------- Tema Kustom: wallpaper dari galeri ---------- */
+function applyCustom() {
+  const c = $('.cu-clock');
+  c.dataset.font = S.cu.font; c.dataset.style = S.cu.style;
+  c.style.setProperty('--cc', S.cu.color);
+  stage.style.setProperty('--shade', S.cu.shade / 100);
+  stage.style.setProperty('--blur', S.cu.blur);
+}
+const idb = {
+  open: () => new Promise((res, rej) => {
+    const r = indexedDB.open('jamMeja', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('kv');
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  }),
+  async run(mode, fn) {
+    const db = await this.open();
+    return new Promise((res, rej) => {
+      const req = fn(db.transaction('kv', mode).objectStore('kv'));
+      req.onsuccess = () => res(req.result); req.onerror = () => rej(req.error);
+    });
+  },
+  get(k) { return this.run('readonly', s => s.get(k)); },
+  set(k, v) { return this.run('readwrite', s => s.put(v, k)); },
+  del(k) { return this.run('readwrite', s => s.delete(k)); }
+};
+let imgUrl = null;
+function setWallpaper(blob) {
+  if (imgUrl) URL.revokeObjectURL(imgUrl);
+  imgUrl = blob ? URL.createObjectURL(blob) : null;
+  stage.style.setProperty('--cu-img', imgUrl ? `url("${imgUrl}")` : 'none');
+  if (S.hasImg !== !!blob) { S.hasImg = !!blob; save(); renderPanels(); }
+}
+function clearWallpaper() { idb.del('wallpaper').catch(() => {}); setWallpaper(null); }
+async function importImage(file) {
+  let bmp;
+  try { bmp = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+  catch (e) { bmp = await createImageBitmap(file); }
+  const sc = Math.min(1, 2200 / Math.max(bmp.width, bmp.height));
+  const c = document.createElement('canvas');
+  c.width = Math.round(bmp.width * sc); c.height = Math.round(bmp.height * sc);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', .88));
+  try { await idb.set('wallpaper', blob); } catch (e) {}
+  setWallpaper(blob);
+}
+const fileIn = $('#fileIn');
+fileIn.addEventListener('change', async () => {
+  const f = fileIn.files[0]; fileIn.value = '';
+  if (!f) return;
+  try { await importImage(f); S.theme = 'custom'; save(); apply(); }
+  catch (err) { alert('Foto tidak bisa dibuka. Coba foto lain.'); }
 });
 
 $('#startBtn').addEventListener('click', enterClock);
@@ -575,6 +775,7 @@ if ('serviceWorker' in navigator) addEventListener('load', () => navigator.servi
 
 apply();
 applyMode();
+idb.get('wallpaper').then(b => setWallpaper(b || null)).catch(() => {});
 })();
 </script>
 </body>
