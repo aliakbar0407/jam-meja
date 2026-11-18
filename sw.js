@@ -1,6 +1,6 @@
 // Service worker Jam Meja: app shell tersimpan di cache supaya jalan offline.
 // Naikkan angka VERSI setiap kali kamu mengubah file, supaya HP mengambil versi baru.
-const VERSI = 'jam-meja-v1';
+const VERSI = 'jam-meja-v4';
 const ASET = [
   './',
   'index.html',
