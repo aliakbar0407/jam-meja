@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#ffb3c7" id="metaTheme">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Jam Meja</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+@font-face{font-family:Fredoka;font-weight:500;src:url(fonts/fredoka-500.woff2) format("woff2");font-display:swap}
+@font-face{font-family:Fredoka;font-weight:700;src:url(fonts/fredoka-700.woff2) format("woff2");font-display:swap}
+@font-face{font-family:Bangers;font-weight:400;src:url(fonts/bangers-400.woff2) format("woff2");font-display:swap}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:Fredoka,ui-rounded,system-ui,sans-serif;background:#1d1530;color:#fff;overflow:hidden;overscroll-behavior:none;user-select:none;-webkit-user-select:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+[hidden]{display:none!important}
+
+/* ============ BERANDA (mode tegak) ============ */
+#home{position:fixed;inset:0;overflow-y:auto;padding:max(20px,env(safe-area-inset-top)) 18px 32px;background:radial-gradient(120% 55% at 50% 0%,#4b2a7a 0%,#1d1530 62%);display:flex;flex-direction:column;gap:16px}
+body.clock #home{display:none}
+#home h1{font-size:34px;font-weight:700;letter-spacing:.3px;line-height:1.1}
+#home h1 b{color:#ff8fb8}
+.sub{opacity:.78;font-size:15px;line-height:1.4}
+.tilt{display:flex;align-items:center;gap:12px;background:#ffffff12;border-radius:18px;padding:10px 14px;font-size:14.5px;line-height:1.35}
+.tilt svg{flex:none;width:38px;height:38px;animation:tilt 3.2s ease-in-out infinite}
+@keyframes tilt{0%,22%{transform:rotate(0)}52%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+#slot{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 0 0 3px #ffffff30,0 14px 30px #0007}
+#slot #stage{width:100%;aspect-ratio:16/10}
+.card{background:#ffffff12;border-radius:22px;padding:14px}
+.big{background:linear-gradient(135deg,#ff8fb8,#ff6fa3);border-radius:18px;padding:15px;font-size:20px;font-weight:700;color:#fff;box-shadow:0 5px 0 #c24577;width:100%}
+.big:active{transform:translateY(3px);box-shadow:0 2px 0 #c24577}
+.ghost{background:#ffffff1a;border-radius:16px;padding:12px;font-weight:500;width:100%;font-size:15.5px}
+.foot{opacity:.55;font-size:12.5px;line-height:1.45;text-align:center}
+
+/* ============ PANEL PENGATURAN ============ */
+.themes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.chip{background:#ffffff14;border-radius:14px;padding:9px 2px 7px;font-size:13px;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:1px;border:2px solid transparent}
+.chip span{font-size:23px;line-height:1.2}
+.chip.on{background:#ff6fa333;border-color:#ff8fb8}
+.rows{display:flex;flex-direction:column;margin-top:8px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 4px;font-size:16px;border-top:1px solid #ffffff14;width:100%;text-align:left}
+.row:first-child{border-top:0}
+.sw{flex:none;width:46px;height:28px;border-radius:99px;background:#ffffff30;position:relative;transition:.2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
+.row.on .sw{background:#ff6fa3}
+.row.on .sw::after{transform:translateX(18px)}
+.row input[type=range]{width:55%;accent-color:#ff6fa3}
+
+/* ============ LEMBAR PENGATURAN (mode jam) ============ */
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#1d1530f2;border-radius:24px 24px 0 0;padding:12px 18px max(16px,env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s ease;max-height:92vh;overflow-y:auto;box-shadow:0 -10px 40px #0008}
+#sheet.open{transform:none}
+.sh-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.sh-top b{font-size:17px}
+.sh-top span{display:flex;gap:8px}
+.sh-top button{background:#ffffff1c;border-radius:12px;padding:7px 13px;font-size:14px}
+@media (orientation:landscape){
+  #sheet{left:auto;right:0;width:min(520px,62vw);border-radius:24px 0 0 0;top:0;bottom:0;border-radius:24px 0 0 24px;max-height:none;transform:translateX(110%)}
+  #sheet.open{transform:none}
+}
+
+/* ============ PANGGUNG JAM ============ */
+#stage{position:relative;container-type:size;overflow:hidden;background:#000;--dim:0}
+body.clock #stage{position:fixed;inset:0;width:100%;height:100%;z-index:5;aspect-ratio:auto;touch-action:none}
+#dimmer{position:absolute;inset:0;background:#000;opacity:var(--dim);pointer-events:none;z-index:50}
+.scene{position:absolute;inset:0;display:none;animation:sceneIn .5s ease both}
+@keyframes sceneIn{from{opacity:0;transform:scale(1.03)}}
+[data-theme=neko] #s-neko,[data-theme=sakura] #s-sakura,[data-theme=pop] #s-pop,[data-theme=cloud] #s-cloud{display:flex}
+
+.time{display:flex;align-items:baseline;justify-content:center;line-height:1;white-space:nowrap}
+.colon{font-style:normal;animation:blink 1s steps(1) infinite;margin:0 .03em;position:relative;top:-.05em}
+@keyframes blink{50%{opacity:.18}}
+.time .sec{font-size:.36em;margin-left:.14em}
+.time .ap{font-size:.24em;margin-left:.1em;display:none;font-weight:500}
+.h12 .time .ap{display:inline}
+.nosec .sec{display:none}
+.nodate .date{display:none}
+
+/* ---------- TEMA 1: NEKO ---------- */
+#s-neko{align-items:center;justify-content:center;background-color:#ffc4d8;
+  background-image:radial-gradient(#ffffffa0 18%,transparent 19%),radial-gradient(#ff9fc2 14%,transparent 15%);
+  background-size:7cqmin 7cqmin;background-position:0 0,3.5cqmin 3.5cqmin;
+  animation:sceneIn .5s ease both,drift 26s linear infinite}
+@keyframes drift{to{background-position:7cqmin 7cqmin,10.5cqmin 10.5cqmin}}
+.neko-stack{display:flex;flex-direction:column;align-items:center;gap:3.4cqmin;margin-top:5cqmin}
+.neko-wrap{position:relative}
+.neko-panel{position:relative;z-index:1;background:#fffaf3;border:1.1cqmin solid #5b3a3a;border-radius:6cqmin;padding:2.4cqmin 6cqmin 3.2cqmin;box-shadow:1.4cqmin 1.8cqmin 0 #5b3a3a;color:#5b3a3a;font-size:min(23cqw,38cqh);font-weight:700}
+.neko-panel .colon,.neko-panel .sec{color:#ff6fa3}
+.cat,.paws{position:absolute;left:6%;width:27cqmin;bottom:calc(100% - 2.7cqmin);overflow:visible;pointer-events:none}
+.cat{z-index:0}
+.paws{z-index:2}
+.cat .eyes{transform-origin:100px 68px;animation:eyeblink 4.5s infinite}
+@keyframes eyeblink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+.tail{position:absolute;z-index:0;right:-8cqmin;bottom:14%;width:13cqmin;transform-origin:18% 94%;animation:wag 1.7s ease-in-out infinite alternate;pointer-events:none}
+@keyframes wag{from{transform:rotate(-8deg)}to{transform:rotate(10deg)}}
+.pill{background:#fffaf3;border:.9cqmin solid #5b3a3a;color:#5b3a3a;border-radius:99px;padding:.7cqmin 4.4cqmin;font-weight:700;font-size:min(3.6cqw,6.8cqh);box-shadow:.8cqmin 1cqmin 0 #5b3a3a;white-space:nowrap}
+.fl{position:absolute;bottom:-9cqmin;left:var(--x);font-size:var(--s);opacity:.85;animation:up var(--d) linear var(--dl) infinite;pointer-events:none}
+@keyframes up{to{transform:translateY(-125cqh) rotate(25deg);opacity:0}}
+
+/* ---------- TEMA 2: SAKURA ---------- */
+#s-sakura{flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#090c2b 0%,#231658 42%,#7a3a86 72%,#ff9fb8 100%)}
+.stars i{position:absolute;border-radius:50%;background:#fff;width:var(--s);height:var(--s);left:var(--x);top:var(--y);animation:twk var(--d) ease-in-out var(--dl) infinite alternate}
+@keyframes twk{from{opacity:.15}to{opacity:1}}
+.moon{position:absolute;right:9%;top:7%;width:min(21cqw,38cqh);aspect-ratio:1;filter:drop-shadow(0 0 3cqmin #ffe9a8aa)}
+.shoot{position:absolute;top:12%;left:-20%;width:18cqmin;height:.45cqmin;border-radius:9px;background:linear-gradient(90deg,transparent,#fff);transform:rotate(24deg);opacity:0;animation:shoot 11s linear 3s infinite}
+@keyframes shoot{0%{transform:translate(0,0) rotate(24deg);opacity:0}2%{opacity:1}9%{transform:translate(95cqw,45cqw) rotate(24deg);opacity:0}100%{opacity:0}}
+.land{position:absolute;left:0;bottom:0;width:100%;height:100%;pointer-events:none}
+.petal{position:absolute;top:0;left:var(--x);width:var(--s);height:calc(var(--s)*.72);background:linear-gradient(135deg,#ffe0ea,#ff8fb3);border-radius:150% 0 150% 0;opacity:.92;animation:fall var(--d) linear var(--dl) infinite}
+@keyframes fall{0%{transform:translate3d(0,-8cqh,0) rotate(0)}100%{transform:translate3d(var(--dx),112cqh,0) rotate(var(--r))}}
+.sak-time{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.6cqmin;margin-top:-3cqmin;color:#fff4f8}
+.sak-time .time{font-size:min(22cqw,40cqh);font-weight:500;text-shadow:0 0 .12em #ff8fb8,0 0 .45em #ff5c93aa}
+.sak-time .colon{color:#ffc2d6}
+.sak-time .date{font-size:min(3.4cqw,6.2cqh);letter-spacing:.08em;color:#ffd5e2;text-shadow:0 0 .6em #ff5c93}
+
+/* ---------- TEMA 3: POP (manga) ---------- */
+#s-pop{align-items:center;justify-content:center;background:#ffd93b;overflow:hidden}
+#s-pop::before{content:"";position:absolute;inset:0;background:radial-gradient(#ff9f1c 22%,transparent 23%) 0 0/3.4cqmin 3.4cqmin;opacity:.55}
+.speed{position:absolute;left:50%;top:50%;width:260cqmax;height:260cqmax;margin:-130cqmax 0 0 -130cqmax;background:repeating-conic-gradient(#ffffffa6 0 2.2deg,transparent 2.2deg 9deg);-webkit-mask:radial-gradient(circle,transparent 16%,#000 52%);mask:radial-gradient(circle,transparent 16%,#000 52%);animation:spin 90s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pop-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:4cqmin;--ch:min(50cqh,30cqw)}
+.pop-row{position:relative;display:flex;align-items:center;gap:2.6cqmin}
+.grp{display:flex;gap:1.6cqmin}
+.grp.h{--c:#ff4d6d;--c2:#e23556}
+.grp.m{--c:#2ec4ff;--c2:#1aa9e6}
+.dots{display:flex;flex-direction:column;gap:3cqmin;animation:blink 1s steps(1) infinite}
+.dots i{width:2.2cqmin;height:2.2cqmin;background:#111;border-radius:50%;box-shadow:.4cqmin .5cqmin 0 #0004}
+.flip{position:relative;width:calc(var(--ch)*.72);height:var(--ch);border:.9cqmin solid #111;border-radius:2.2cqmin;box-shadow:1cqmin 1.4cqmin 0 #111;perspective:calc(var(--ch)*3.2);background:#111;font-family:Bangers,Fredoka,sans-serif;font-size:calc(var(--ch)*.84);color:#fff}
+.flip::after{content:"";position:absolute;left:0;right:0;top:50%;height:.45cqmin;margin-top:-.22cqmin;background:#111;z-index:5}
+.flip>div{position:absolute;left:0;right:0;overflow:hidden;backface-visibility:hidden}
+.flip .top,.flip .ft{top:0;height:50%;border-radius:1.4cqmin 1.4cqmin 0 0;background:var(--c)}
+.flip .bot,.flip .fb{bottom:0;height:50%;border-radius:0 0 1.4cqmin 1.4cqmin;background:var(--c2)}
+.flip span{position:absolute;left:0;right:0;height:200%;display:flex;align-items:center;justify-content:center;line-height:1;-webkit-text-stroke:.05em #111;paint-order:stroke fill;text-shadow:.05em .06em 0 #111}
+.flip .top span,.flip .ft span{top:0}
+.flip .bot span,.flip .fb span{bottom:0}
+.flip .ft{transform-origin:50% 100%;z-index:3}
+.flip .fb{transform-origin:50% 0;transform:rotateX(90deg);z-index:3}
+.flip.go .ft{animation:ft .26s ease-in forwards}
+.flip.go .fb{animation:fb .26s .26s ease-out forwards}
+@keyframes ft{to{transform:rotateX(-90deg)}}
+@keyframes fb{to{transform:rotateX(0)}}
+.burst{position:absolute;right:-12cqmin;top:-12.5cqmin;width:min(12.5cqw,24cqh);overflow:visible;transform:rotate(-8deg);filter:drop-shadow(.6cqmin .8cqmin 0 #111)}
+.burst polygon{fill:#fff;stroke:#111;stroke-width:3.2;stroke-linejoin:round}
+.burst text{font-family:Bangers,Fredoka,sans-serif;font-size:36px;fill:#ff4d6d;stroke:#111;stroke-width:1.2;paint-order:stroke fill}
+.tag{background:#111;color:#fff;font-family:Bangers,Fredoka,sans-serif;letter-spacing:.06em;padding:.6cqmin 4cqmin;font-size:min(4.4cqw,8cqh);transform:rotate(-2deg);box-shadow:.9cqmin .9cqmin 0 #ff4d6d;white-space:nowrap}
+
+/* ---------- TEMA 4: AWAN (analog kawaii) ---------- */
+#s-cloud{align-items:center;justify-content:center;background:linear-gradient(#7fc8ff 0%,#bfe6ff 55%,#eaf8ff 100%)}
+.clouds i{position:absolute;left:-30cqmin;top:var(--t);width:var(--w);height:calc(var(--w)*.34);background:#fff;border-radius:99px;opacity:.92;animation:cloud var(--d) linear var(--dl) infinite}
+.clouds i::before,.clouds i::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.clouds i::before{left:16%;top:-52%;width:42%;height:150%}
+.clouds i::after{left:46%;top:-34%;width:34%;height:115%}
+@keyframes cloud{to{transform:translateX(calc(100cqw + 70cqmin))}}
+.cl-wrap{position:relative;display:flex;align-items:center;gap:7cqw}
+.analog{width:min(84cqh,40cqw);flex:none;overflow:visible;filter:drop-shadow(0 1.4cqmin 0 #3b4a7a30)}
+.hand{transform-origin:100px 100px;transform-box:view-box}
+#hs{transition:transform .38s cubic-bezier(.3,1.8,.5,1)}
+.analog .eyes{transform-origin:100px 76px;animation:eyeblink 5s infinite}
+.cl-info{display:flex;flex-direction:column;align-items:flex-start;gap:2.4cqmin;color:#3b4a7a}
+.cl-info .time{font-size:min(13cqw,24cqh);font-weight:700;justify-content:flex-start;text-shadow:.04em .05em 0 #fff}
+.cl-info .colon,.cl-info .sec{color:#ff6fa3}
+.cl-info .pill{border-color:#3b4a7a;color:#3b4a7a;box-shadow:.8cqmin 1cqmin 0 #3b4a7a;background:#fff;font-size:min(2.9cqw,5.4cqh)}
+
+/* ---------- Tata letak tegak (mode paksa / pratinjau sempit) ---------- */
+@container (max-aspect-ratio:1/1){
+  .neko-panel{font-size:min(24cqw,15cqh)}
+  .cat,.paws{width:min(42cqw,30cqh)}
+  .pill{font-size:min(5.5cqw,3.4cqh)}
+  .sak-time .time{font-size:min(30cqw,18cqh)}
+  .sak-time .date{font-size:min(5cqw,3.2cqh)}
+  .pop-wrap{--ch:min(26cqh,50cqw)}
+  .pop-row{flex-direction:column;gap:3cqmin}
+  .dots{display:none}
+  .burst{right:-3cqmin;top:-17cqmin;width:min(21cqw,13cqh)}
+  .tag{font-size:min(7cqw,4.2cqh)}
+  .cl-wrap{flex-direction:column;gap:4cqh}
+  .analog{width:min(78cqw,46cqh)}
+  .cl-info{align-items:center}
+  .cl-info .time{font-size:min(22cqw,12cqh);justify-content:center}
+  .cl-info .pill{font-size:min(5cqw,3cqh)}
+}
+</style>
+</head>
+<body>
+
+<!-- BERANDA -->
+<div id="home">
+  <div>
+    <h1>Jam Meja <b>♡</b></h1>
+    <p class="sub">Jam layar penuh bergaya anime &amp; kartun.</p>
+  </div>
+  <div class="tilt">
+    <svg viewBox="0 0 40 40"><rect x="11" y="4" width="18" height="32" rx="5" fill="none" stroke="#ff8fb8" stroke-width="3"/><circle cx="20" cy="31" r="1.8" fill="#ff8fb8"/></svg>
+    <span>Miringkan HP ke samping, jam otomatis tampil layar penuh.</span>
+  </div>
+  <div id="slot"></div>
+  <div class="card" id="homePanel"></div>
+  <button class="big" id="startBtn">▶ Mulai jam sekarang</button>
+  <button class="ghost" id="installBtn" hidden>⬇ Pasang ke layar utama</button>
+  <p class="foot">Tips: pastikan Putar otomatis (auto-rotate) aktif. Ketuk jam untuk membuka pengaturan, geser kiri/kanan untuk ganti tema.<br>Belum ada tombol pasang? Buka menu ⋮ Chrome → Instal aplikasi.</p>
+</div>
+
+<!-- PANGGUNG JAM -->
+<div id="stage" data-theme="neko">
+
+  <!-- Neko -->
+  <div class="scene" id="s-neko">
+    <div class="floaties" id="floaties"></div>
+    <div class="neko-stack">
+      <div class="neko-wrap">
+        <svg class="tail" viewBox="0 0 60 110">
+          <path d="M12 104 C52 96 58 56 32 36 C20 27 24 10 40 12" fill="none" stroke="#5b3a3a" stroke-width="22" stroke-linecap="round"/>
+          <path d="M12 104 C52 96 58 56 32 36 C20 27 24 10 40 12" fill="none" stroke="#ffd6a5" stroke-width="13" stroke-linecap="round"/>
+          <path d="M44 14 C38 10 33 14 31 20" fill="none" stroke="#ff9fbd" stroke-width="13" stroke-linecap="round" opacity="0"/>
+        </svg>
+        <svg class="cat" viewBox="0 0 200 130">
+          <g stroke="#5b3a3a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M30 56 L36 8 L80 36 Z" fill="#ffd6a5"/>
+            <path d="M170 56 L164 8 L120 36 Z" fill="#ffd6a5"/>
+            <ellipse cx="100" cy="72" rx="74" ry="50" fill="#ffd6a5"/>
+          </g>
+          <path d="M44 42 L46 22 L62 33 Z" fill="#ff9fbd"/>
+          <path d="M156 42 L154 22 L138 33 Z" fill="#ff9fbd"/>
+          <g stroke="#e8a56a" stroke-width="4" stroke-linecap="round"><path d="M100 26v14"/><path d="M84 29l4 12"/><path d="M116 29l-4 12"/></g>
+          <g class="eyes">
+            <ellipse cx="68" cy="70" rx="9" ry="12" fill="#3a2525"/><ellipse cx="132" cy="70" rx="9" ry="12" fill="#3a2525"/>
+            <circle cx="71" cy="65" r="3.6" fill="#fff"/><circle cx="135" cy="65" r="3.6" fill="#fff"/>
+            <circle cx="65" cy="75" r="1.8" fill="#fff"/><circle cx="129" cy="75" r="1.8" fill="#fff"/>
+          </g>
+          <ellipse cx="46" cy="88" rx="11" ry="7" fill="#ff8fb3" opacity=".65"/><ellipse cx="154" cy="88" rx="11" ry="7" fill="#ff8fb3" opacity=".65"/>
+          <path d="M94 82h12l-6 7z" fill="#ff6f95"/>
+          <g fill="none" stroke="#5b3a3a" stroke-width="3.5" stroke-linecap="round">
+            <path d="M100 89q-5 8 -13 3"/><path d="M100 89q5 8 13 3"/>
+            <path d="M30 80L8 74"/><path d="M30 89L6 91"/><path d="M170 80L192 74"/><path d="M170 89L194 91"/>
+          </g>
+        </svg>
+        <div class="neko-panel">
+          <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
+        </div>
+        <svg class="paws" viewBox="0 0 200 130">
+          <g stroke="#5b3a3a" stroke-width="5" fill="#fff3e4" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="62" cy="112" rx="19" ry="11"/><ellipse cx="138" cy="112" rx="19" ry="11"/>
+          </g>
+          <g stroke="#5b3a3a" stroke-width="3" stroke-linecap="round"><path d="M55 108v8"/><path d="M62 107v9"/><path d="M69 108v8"/><path d="M131 108v8"/><path d="M138 107v9"/><path d="M145 108v8"/></g>
+        </svg>
+      </div>
+      <div class="pill date" data-date></div>
+    </div>
+  </div>
+
+  <!-- Sakura -->
+  <div class="scene" id="s-sakura">
+    <div class="stars" id="stars"></div>
+    <svg class="moon" viewBox="0 0 100 100"><path d="M62 10 A40 40 0 1 0 90 66 A31 31 0 1 1 62 10 Z" fill="#fff3c4"/></svg>
+    <i class="shoot"></i>
+    <svg class="land" viewBox="0 0 1000 220" preserveAspectRatio="xMidYMax meet">
+      <path d="M0 220V150C130 120 230 160 360 142C480 126 560 168 690 146C810 126 900 150 1000 130V220Z" fill="#2a1558" opacity=".9"/>
+      <path d="M0 220V172C110 150 210 182 330 168C470 150 560 190 700 172C820 156 910 176 1000 160V220Z" fill="#150a33"/>
+      <!-- torii -->
+      <g fill="#2b0f3a">
+        <path d="M705 92Q790 108 875 92L872 106Q790 122 708 106Z"/>
+        <rect x="722" y="118" width="136" height="7" rx="3"/>
+        <rect x="734" y="104" width="10" height="68"/><rect x="836" y="104" width="10" height="68"/>
+      </g>
+      <!-- pohon sakura -->
+      <g>
+        <path d="M118 182C124 150 108 126 84 100M112 140C130 126 142 114 150 98M100 118C84 112 70 108 58 94" fill="none" stroke="#1d0b2e" stroke-width="11" stroke-linecap="round"/>
+        <g fill="#ff9ab8" opacity=".9"><circle cx="84" cy="84" r="26"/><circle cx="122" cy="76" r="22"/><circle cx="58" cy="102" r="18"/><circle cx="152" cy="94" r="17"/></g>
+        <g fill="#ffd0df" opacity=".85"><circle cx="96" cy="72" r="14"/><circle cx="132" cy="66" r="11"/><circle cx="66" cy="92" r="9"/></g>
+      </g>
+    </svg>
+    <div class="petals" id="petals"></div>
+    <div class="sak-time">
+      <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
+      <div class="date" data-date></div>
+    </div>
+  </div>
+
+  <!-- Pop -->
+  <div class="scene" id="s-pop">
+    <div class="speed"></div>
+    <div class="pop-wrap">
+      <div class="pop-row">
+        <div class="grp h"><div class="flip" data-flip="h1"></div><div class="flip" data-flip="h2"></div></div>
+        <div class="dots"><i></i><i></i></div>
+        <div class="grp m"><div class="flip" data-flip="m1"></div><div class="flip" data-flip="m2"></div></div>
+        <svg class="burst sec" viewBox="0 0 100 100"><polygon id="burstPoly" points=""/><text x="50" y="53" text-anchor="middle" dominant-baseline="central" data-s>00</text></svg>
+      </div>
+      <div class="tag date" data-date></div>
+    </div>
+  </div>
+
+  <!-- Awan (analog) -->
+  <div class="scene" id="s-cloud">
+    <div class="clouds">
+      <i style="--t:10%;--w:26cqmin;--d:70s;--dl:-20s"></i>
+      <i style="--t:62%;--w:20cqmin;--d:90s;--dl:-60s"></i>
+      <i style="--t:30%;--w:16cqmin;--d:60s;--dl:-5s"></i>
+      <i style="--t:78%;--w:30cqmin;--d:110s;--dl:-80s"></i>
+    </div>
+    <div class="cl-wrap">
+      <svg class="analog" viewBox="0 0 200 200">
+        <g stroke="#3b4a7a" stroke-width="5">
+          <circle cx="42" cy="26" r="21" fill="#ffd1e0"/><circle cx="158" cy="26" r="21" fill="#ffd1e0"/>
+        </g>
+        <circle cx="42" cy="26" r="10" fill="#ff9fbd"/><circle cx="158" cy="26" r="10" fill="#ff9fbd"/>
+        <circle cx="100" cy="102" r="92" fill="#ffd1e0" stroke="#3b4a7a" stroke-width="5"/>
+        <circle cx="100" cy="102" r="80" fill="#fffdf6" stroke="#3b4a7a" stroke-width="4"/>
+        <g id="ticks" fill="#3b4a7a"></g>
+        <g class="eyes">
+          <circle cx="78" cy="76" r="6" fill="#3b4a7a"/><circle cx="122" cy="76" r="6" fill="#3b4a7a"/>
+          <circle cx="80" cy="73.5" r="2" fill="#fff"/><circle cx="124" cy="73.5" r="2" fill="#fff"/>
+        </g>
+        <ellipse cx="64" cy="90" rx="9" ry="5.5" fill="#ff9db8" opacity=".75"/><ellipse cx="136" cy="90" rx="9" ry="5.5" fill="#ff9db8" opacity=".75"/>
+        <path d="M91 88q4.5 7 9 0q4.5 7 9 0" fill="none" stroke="#3b4a7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <g transform="translate(0,2)">
+          <g class="hand" id="hh"><line x1="100" y1="100" x2="100" y2="58" stroke="#3b4a7a" stroke-width="10" stroke-linecap="round"/></g>
+          <g class="hand" id="hm"><line x1="100" y1="100" x2="100" y2="34" stroke="#3b4a7a" stroke-width="6.5" stroke-linecap="round"/></g>
+          <g class="hand" id="hs"><line x1="100" y1="114" x2="100" y2="28" stroke="#ff6fa3" stroke-width="3.2" stroke-linecap="round"/><circle cx="100" cy="36" r="5" fill="#ff6fa3"/></g>
+          <circle cx="100" cy="100" r="6.5" fill="#fffdf6" stroke="#3b4a7a" stroke-width="3.5"/>
+        </g>
+      </svg>
+      <div class="cl-info">
+        <div class="time"><span data-h>00</span><i class="colon">:</i><span data-m>00</span><span class="sec" data-s>00</span><b class="ap" data-ap></b></div>
+        <div class="pill date" data-date></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dimmer"></div>
+</div>
+
+<!-- LEMBAR PENGATURAN (saat mode jam) -->
+<div id="sheet">
+  <div class="sh-top"><b>Pengaturan</b><span><button id="fsBtn" hidden>Layar penuh</button><button id="exitBtn" hidden>Keluar</button><button data-act="close">Tutup</button></span></div>
+  <div id="sheetPanel"></div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+/* ---------- Pengaturan ---------- */
+const KEY = 'jamMeja.v1';
+const DEF = { theme: 'neko', h24: true, sec: true, date: true, awake: true, dim: 0 };
+let S;
+try { S = { ...DEF, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch (e) { S = { ...DEF }; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+const THEMES = [
+  { id: 'neko',   name: 'Neko',   emoji: '🐱', color: '#ffb3c7' },
+  { id: 'sakura', name: 'Sakura', emoji: '🌸', color: '#231658' },
+  { id: 'pop',    name: 'Pop',    emoji: '⚡', color: '#ffd93b' },
+  { id: 'cloud',  name: 'Awan',   emoji: '☁️', color: '#7fc8ff' }
+];
+if (!THEMES.some(t => t.id === S.theme)) S.theme = 'neko';
+
+const stage = $('#stage'), slot = $('#slot'), sheet = $('#sheet');
+const metaTheme = $('#metaTheme');
+const standalone = matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches;
+
+/* ---------- Panel ---------- */
+function row(label, key) {
+  return `<button class="row ${S[key] ? 'on' : ''}" data-act="tog" data-v="${key}"><span>${label}</span><i class="sw"></i></button>`;
+}
+function panelHTML() {
+  return `<div class="themes">${THEMES.map(t =>
+      `<button class="chip ${S.theme === t.id ? 'on' : ''}" data-act="theme" data-v="${t.id}"><span>${t.emoji}</span>${t.name}</button>`).join('')}</div>
+    <div class="rows">
+      ${row('Format 24 jam', 'h24')}${row('Tampilkan detik', 'sec')}${row('Tampilkan tanggal', 'date')}${row('Layar tetap menyala', 'awake')}
+      <label class="row"><span>Redup</span><input type="range" min="0" max="80" value="${S.dim}" data-act="dim"></label>
+    </div>`;
+}
+function renderPanels() { $('#homePanel').innerHTML = $('#sheetPanel').innerHTML = panelHTML(); }
+
+/* ---------- Terapkan pengaturan ---------- */
+function apply() {
+  stage.dataset.theme = S.theme;
+  stage.classList.toggle('nosec', !S.sec);
+  stage.classList.toggle('nodate', !S.date);
+  stage.classList.toggle('h12', !S.h24);
+  stage.style.setProperty('--dim', S.dim / 100);
+  metaTheme.content = THEMES.find(t => t.id === S.theme).color;
+  renderPanels();
+  tick(true);
+  wakeSync();
+}
+function shiftTheme(d) {
+  const i = THEMES.findIndex(t => t.id === S.theme);
+  S.theme = THEMES[(i + d + THEMES.length) % THEMES.length].id;
+  save(); apply();
+}
+
+/* ---------- Dekorasi acak ---------- */
+const rnd = (a, b) => a + Math.random() * (b - a);
+(function build() {
+  // bintang
+  $('#stars').innerHTML = Array.from({ length: 70 }, () =>
+    `<i style="--s:${rnd(.25, .7).toFixed(2)}cqmin;--x:${rnd(0, 100).toFixed(1)}%;--y:${rnd(0, 62).toFixed(1)}%;--d:${rnd(1.5, 4.5).toFixed(1)}s;--dl:${rnd(-4, 0).toFixed(1)}s"></i>`).join('');
+  // kelopak sakura
+  $('#petals').innerHTML = Array.from({ length: 22 }, () =>
+    `<span class="petal" style="--x:${rnd(-5, 100).toFixed(1)}%;--s:${rnd(1.6, 3.2).toFixed(2)}cqmin;--dx:${rnd(-30, 18).toFixed(1)}cqmin;--r:${Math.round(rnd(300, 800))}deg;--d:${rnd(9, 17).toFixed(1)}s;--dl:${rnd(-17, 0).toFixed(1)}s"></span>`).join('');
+  // hiasan neko melayang
+  const em = ['🐾', '💗', '⭐', '🐟', '🌸'];
+  $('#floaties').innerHTML = Array.from({ length: 10 }, (_, i) =>
+    `<span class="fl" style="--x:${(i * 10 + rnd(0, 8)).toFixed(0)}%;--s:${rnd(3.2, 5.6).toFixed(1)}cqmin;--d:${rnd(11, 20).toFixed(1)}s;--dl:${rnd(-20, 0).toFixed(1)}s">${em[i % em.length]}</span>`).join('');
+  // ledakan angka detik (Pop)
+  const pts = [];
+  for (let i = 0; i < 24; i++) { const r = i % 2 ? 37 : 48, a = Math.PI * i / 12; pts.push((50 + r * Math.cos(a)).toFixed(1) + ',' + (50 + r * Math.sin(a)).toFixed(1)); }
+  $('#burstPoly').setAttribute('points', pts.join(' '));
+  // penanda jam analog
+  let t = '';
+  for (let i = 0; i < 12; i++) {
+    const a = i * Math.PI / 6, q = i % 3 === 0;
+    t += `<circle cx="${(100 + 66 * Math.sin(a)).toFixed(1)}" cy="${(102 - 66 * Math.cos(a)).toFixed(1)}" r="${q ? 5 : 3}"/>`;
+  }
+  $('#ticks').innerHTML = t;
+  // kartu flip
+  $$('.flip').forEach(f => {
+    f.innerHTML = '<div class="top"><span>0</span></div><div class="bot"><span>0</span></div><div class="ft"><span>0</span></div><div class="fb"><span>0</span></div>';
+  });
+})();
+
+/* ---------- Jam ---------- */
+const hs = $$('[data-h]'), ms = $$('[data-m]'), ss = $$('[data-s]'), aps = $$('[data-ap]'), dates = $$('[data-date]');
+const fmtDate = new Intl.DateTimeFormat('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const hand = { hh: $('#hh'), hm: $('#hm'), hs: $('#hs') };
+const last = {};
+const put = (key, nodes, val) => { if (last[key] !== val) { last[key] = val; nodes.forEach(n => n.textContent = val); } };
+
+function setFlip(el, v) {
+  const old = el.dataset.v;
+  if (old === v) return;
+  const q = c => $('.' + c + ' span', el);
+  if (old === undefined) { ['top', 'bot', 'ft', 'fb'].forEach(c => q(c).textContent = v); el.dataset.v = v; return; }
+  q('top').textContent = v; q('fb').textContent = v; q('ft').textContent = old; q('bot').textContent = old;
+  el.dataset.v = v;
+  el.classList.remove('go'); void el.offsetWidth; el.classList.add('go');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { q('bot').textContent = v; q('ft').textContent = v; el.classList.remove('go'); }, 560);
+}
+
+function tick(force) {
+  if (force) for (const k in last) delete last[k];
+  const d = new Date();
+  const h = d.getHours(), m = d.getMinutes(), s = d.getSeconds();
+  const h12 = h % 12 || 12;
+  const H = S.h24 ? String(h).padStart(2, '0') : String(h12);
+  const M = String(m).padStart(2, '0'), SS = String(s).padStart(2, '0');
+  put('h', hs, H); put('m', ms, M); put('s', ss, SS);
+  put('ap', aps, h >= 12 ? 'PM' : 'AM');
+  put('d', dates, fmtDate.format(d));
+  const hp = S.h24 ? String(h).padStart(2, '0') : String(h12).padStart(2, '0');
+  setFlip($('[data-flip=h1]'), hp[0]); setFlip($('[data-flip=h2]'), hp[1]);
+  setFlip($('[data-flip=m1]'), M[0]); setFlip($('[data-flip=m2]'), M[1]);
+  // jam analog (sudut kumulatif supaya tidak berputar balik)
+  const local = d.getTime() - d.getTimezoneOffset() * 60000;
+  hand.hs.style.transform = `rotate(${Math.floor(local / 1000) * 6}deg)`;
+  hand.hm.style.transform = `rotate(${(local / 60000) * 6}deg)`;
+  hand.hh.style.transform = `rotate(${(local / 3600000) * 30}deg)`;
+}
+// putaran pertama tanpa animasi jarum detik
+hand.hs.style.transition = 'none';
+tick(true);
+requestAnimationFrame(() => requestAnimationFrame(() => { hand.hs.style.transition = ''; }));
+setInterval(tick, 250);
+
+/* ---------- Mode: jam penuh vs beranda ---------- */
+const mqL = matchMedia('(orientation: landscape)');
+const mqC = matchMedia('(pointer: coarse)');
+let forced = false;
+const inClock = () => forced || (mqL.matches && mqC.matches);
+
+function applyMode() {
+  const c = inClock();
+  document.body.classList.toggle('clock', c);
+  (c ? document.body : slot).appendChild(stage);
+  if (!c) closeSheet();
+  $('#exitBtn').hidden = !forced;
+  $('#fsBtn').hidden = !(c && !standalone && document.documentElement.requestFullscreen);
+  renderPanels();
+  wakeSync();
+}
+mqL.addEventListener('change', applyMode);
+
+async function enterClock() {
+  forced = true;
+  try { if (!standalone && document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen(); } catch (e) {}
+  try { await screen.orientation.lock('landscape'); } catch (e) {}
+  applyMode();
+}
+function exitClock() {
+  forced = false;
+  try { screen.orientation.unlock(); } catch (e) {}
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  applyMode();
+}
+document.addEventListener('fullscreenchange', () => {
+  if (forced && !document.fullscreenElement && !standalone) exitClock();
+});
+
+/* ---------- Layar tetap menyala ---------- */
+let wl = null;
+async function wakeSync() {
+  const want = S.awake && document.body.classList.contains('clock') && document.visibilityState === 'visible';
+  if (!want) { if (wl) { try { await wl.release(); } catch (e) {} wl = null; } return; }
+  if (wl || !('wakeLock' in navigator)) return;
+  try { wl = await navigator.wakeLock.request('screen'); wl.addEventListener('release', () => { wl = null; }); } catch (e) {}
+}
+document.addEventListener('visibilitychange', wakeSync);
+document.addEventListener('pointerdown', wakeSync, { passive: true });
+
+/* ---------- Lembar pengaturan ---------- */
+let sheetTimer;
+function openSheet() { sheet.classList.add('open'); kickSheet(); }
+function closeSheet() { sheet.classList.remove('open'); clearTimeout(sheetTimer); }
+function kickSheet() { clearTimeout(sheetTimer); sheetTimer = setTimeout(closeSheet, 9000); }
+sheet.addEventListener('pointerdown', kickSheet);
+
+/* ---------- Interaksi ---------- */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (!b) return;
+  const a = b.dataset.act, v = b.dataset.v;
+  if (a === 'theme') { S.theme = v; save(); apply(); }
+  else if (a === 'tog') { S[v] = !S[v]; save(); apply(); }
+  else if (a === 'close') closeSheet();
+  if (sheet.classList.contains('open')) kickSheet();
+});
+document.addEventListener('input', e => {
+  if (e.target.dataset.act !== 'dim') return;
+  S.dim = +e.target.value; save();
+  stage.style.setProperty('--dim', S.dim / 100);
+  $$('input[data-act=dim]').forEach(i => { if (i !== e.target) i.value = S.dim; });
+  if (sheet.classList.contains('open')) kickSheet();
+});
+
+let pd = null;
+stage.addEventListener('pointerdown', e => { pd = { x: e.clientX, y: e.clientY }; });
+stage.addEventListener('pointercancel', () => { pd = null; });
+stage.addEventListener('pointerup', e => {
+  if (!pd) return;
+  const dx = e.clientX - pd.x, dy = e.clientY - pd.y; pd = null;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { shiftTheme(dx < 0 ? 1 : -1); return; }
+  if (Math.hypot(dx, dy) < 14) {
+    if (document.body.classList.contains('clock')) sheet.classList.contains('open') ? closeSheet() : openSheet();
+    else shiftTheme(1);
+  }
+});
+
+$('#startBtn').addEventListener('click', enterClock);
+$('#exitBtn').addEventListener('click', () => { closeSheet(); exitClock(); });
+$('#fsBtn').addEventListener('click', () => {
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  else document.documentElement.requestFullscreen().catch(() => {});
+});
+
+/* ---------- Pasang & offline ---------- */
+let deferred = null;
+const installBtn = $('#installBtn');
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; if (!standalone) installBtn.hidden = false; });
+installBtn.addEventListener('click', async () => {
+  if (!deferred) return;
+  deferred.prompt(); try { await deferred.userChoice; } catch (e) {}
+  deferred = null; installBtn.hidden = true;
+});
+addEventListener('appinstalled', () => { installBtn.hidden = true; });
+if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+
+apply();
+applyMode();
+})();
+</script>
+</body>
+</html>
